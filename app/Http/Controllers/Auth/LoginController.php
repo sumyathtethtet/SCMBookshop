@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Log;
+use Validator;
 class LoginController extends Controller
 {
   /*
@@ -39,24 +40,47 @@ class LoginController extends Controller
     $this->middleware('guest')->except('logout');
   }
 
+  /**
+   * Create a new controller instance.
+   *
+   * @param [Request] $request
+   * @return void
+   */
   public function login(Request $request)
   {
     $email=$request->email;
     $password=$request->password;
-    if(Auth::attempt(['email'=>$email,'password'=>$password])) {
-      // Authentication passed...
-      Log::info("Login succeeded");
+    // check validation
+    $validator = Validator::make($request->all(),[
+      'email'=> 'required|email',
+      'password'=>'required'
+    ]);
 
-      return redirect('/home');
+    if ($validator->fails()){
+      return redirect('login')
+      ->withErrors($validator)
+      ->withInput();
     }
-    Log::info("Login failed");
-    return redirect()->intended('login')
-      ->with('loginError', 'User name or password is incorrect!');
 
+    if(Auth::attempt(['email'=>$email,'password'=>$password])) {
+        Log::info("Login succeeded");
+        return redirect('/home')->with('success','login success');
+
+    }else{
+        Log::info("Login failed");
+        return redirect()->intended('login')
+        ->with('loginError', 'User name or password is incorrect!');  
+    }
   }
-
-  public function logout(Request $request) {
+ /**
+   * Create a new controller instance.
+   *
+   *
+   * @return void
+   */
+  public function logout()
+  {
     Auth::logout();
     return redirect('/login');
   }
-}
+  }
