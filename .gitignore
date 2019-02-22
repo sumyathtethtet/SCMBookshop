@@ -1,0 +1,52 @@
+/node_modules
+/public/hot
+/public/storage
+/vendor
+/.idea
+/.vscode
+/.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+.env
+.env-local
+.env-production
+.env-staging
+/tmp
+### https://raw.github.com/github/gitignore/9da1b5d8ce4e009ff627c4fe49a4488b2a3f60d4/Global/Vim.gitignore
+
+# Swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+
+# Temporary
+.netrwhist
+*~
+# Auto-generated tag files
+tags
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+!.elasticbeanstalk/config.yml
+
+nbproject/
+.DS_Store
+
+public/css/app.css
+public/js/app.js
+config/db-blade-compiler.php
+public/fonts/vendor/trumbowyg/
+resources/views/vendor/
+public/mix-manifest.json
+.php_cs.cache
+public/css/customer.css
+
+DeploymentId.php
