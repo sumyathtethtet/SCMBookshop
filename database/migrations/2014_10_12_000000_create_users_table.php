@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-
 class CreateUsersTable extends Migration
 {
     /**
@@ -34,6 +33,7 @@ class CreateUsersTable extends Migration
             $table->string('remember_token',100)->nullable()->default(null);
         });
     }
+
 
     /**
      * Reverse the migrations.
