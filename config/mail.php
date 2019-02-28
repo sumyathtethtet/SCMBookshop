@@ -55,10 +55,7 @@ return [
     |
     */
 
-    'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
-    ],
+    'from' => ['address' => 'yourEmail@gmail.com', 'name' => 'Your Title'],
 
     /*
     |--------------------------------------------------------------------------
@@ -71,7 +68,7 @@ return [
     |
     */
 
-    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+    'encryption' => 'tls',
 
     /*
     |--------------------------------------------------------------------------
@@ -100,7 +97,7 @@ return [
     */
 
     'sendmail' => '/usr/sbin/sendmail -bs',
-
+    
     /*
     |--------------------------------------------------------------------------
     | Markdown Mail Settings

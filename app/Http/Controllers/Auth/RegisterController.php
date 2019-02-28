@@ -6,7 +6,14 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Mail;
+use App\Http\Controllers\Auth;
+use App\Mail\WelcomeMail;
+
+
+
 
 class RegisterController extends Controller
 {
@@ -51,7 +58,11 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'password' => ['required','min:6'],               
+            'password_confirm' => 'required|min:6|same:password',
+            'phone' => 'required|numeric',            
+            'dob' => 'required|date',
+            'profile'=>'required',
         ]);
     }
 
@@ -63,10 +74,36 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => bcrypt($data['password']),
+            'phone'=> $data['phone'],
+            'dob'=> $data['dob'],
+            'profile'=> $data['profile'],
+            'create_user_id' => 1,
+            'updated_user_id'=> 1,
+             
+
         ]);
+        $profile = time().'.'.request()->profile->getClientOriginalExtension();
+        request()->profile->move(public_path('myFile'), $profile);
+
+        $user = 'scm.sumyathtethtet@gmail.com';
+        
+        Mail::to($data['email'])->send(new WelcomeMail($user));
+        
+                return $user;
+        
+        
     }
+    // public function mail()
+    // {
+    //    $user = 'scm.sumyathtethtet@gmail.com';
+    //    Mail::to($user)->send(new WelcomeMail($user));
+       
+    //    return 'Email was sent';
+    // }
+
 }
+

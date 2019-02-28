@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('phone',20);
             $table->date('dob')->nullable();
             $table->text('profile')->nullable();
+            
             $table->integer('create_user_id')->unsigned();
             $table->foreign('create_user_id')->references('id')->on('users');
             $table->integer('updated_user_id')->unsigned();
