@@ -11,9 +11,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Mail;
 use App\Http\Controllers\Auth;
 use App\Mail\WelcomeMail;
-
-
-
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -48,6 +46,19 @@ class RegisterController extends Controller
     }
 
     /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        event(new Registered($user = $this->create($request->all())));
+        $this->sendRegisterMail($request->email);
+        return redirect('login');
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -55,11 +66,11 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        return Validator::make($data,[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required','min:6'],               
-            'password_confirm' => 'required|min:6|same:password',
+            'password_confirm' => ['required','min:6','same:password'],
             'phone' => 'required|numeric',            
             'dob' => 'required|date',
             'profile'=>'required',
@@ -83,27 +94,19 @@ class RegisterController extends Controller
             'profile'=> $data['profile'],
             'create_user_id' => 1,
             'updated_user_id'=> 1,
-             
-
         ]);
         $profile = time().'.'.request()->profile->getClientOriginalExtension();
         request()->profile->move(public_path('myFile'), $profile);
-
-        $user = 'scm.sumyathtethtet@gmail.com';
-        
-        Mail::to($data['email'])->send(new WelcomeMail($user));
-        
-                return $user;
-        
-        
     }
-    // public function mail()
-    // {
-    //    $user = 'scm.sumyathtethtet@gmail.com';
-    //    Mail::to($user)->send(new WelcomeMail($user));
-       
-    //    return 'Email was sent';
-    // }
 
+    /**
+     * Create a new controller instance to send email after a valid registration.
+     *
+     * @param  $email
+     */
+    public function sendRegistermail($email)
+    {
+        Mail::to($email)->send(new WelcomeMail());
+    }
 }
 

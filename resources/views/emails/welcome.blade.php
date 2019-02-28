@@ -3,10 +3,8 @@
 <head>
     <title>Welcome Email</title>
 </head>
-
 <body>
-
-Your registeris successful {{ $user }}
+    Welcome from SCM Bookshop.
+    You are successfully registered.
 </body>
-
 </html>

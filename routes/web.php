@@ -11,6 +11,7 @@
 |
 */
 
+Auth::routes();
 Route::get('/welcome', function () {
     return view('welcome');
 });
@@ -23,10 +24,6 @@ Route::get('/', function () {
 Route::post('/login', 'Auth\LoginController@login');
 
 //register
+Route::post('/register','Auth\RegisterController@register');
 
-Route::get('/register/email', 'Auth\RegisterController@mail');
-Route::get('/logout','Auth\LoginController@logout');
-
-Auth::routes();
-//Auth::routes(['verify' => true]);
 
