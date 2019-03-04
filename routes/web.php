@@ -26,4 +26,21 @@ Route::post('/login', 'Auth\LoginController@login');
 //register
 Route::post('/register','Auth\RegisterController@register');
 
+//author
+Route::get('/list-author','Author\AuthorController@index');
+
+//new author add
+Route::get('/add-author',function() {
+    return view('author.add-author');
+});
+Route::post('/add-author','Author\AuthorController@store');
+
+//edit author
+Route::get('/edit-author/{authoredit_id}','Author\AuthorController@edit');
+Route::post('/update-author','Author\AuthorCOntroller@update');
+
+//delete author
+Route::get('/delete-author/{authordelete_id}','Author\AuthorController@destroy');
+
+
 
