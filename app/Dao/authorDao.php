@@ -26,8 +26,12 @@ private $authorService;
    */
   public function deleteAuthor($request)
   {
+    $data = Author::find($request)->delete();
+    $author=new Author;
     
-    $author = Author::find($request);
-    $author->delete();
+            $author->deleted_user_id = auth()->id();
+    
+            $author->save();
+    return redirect('/list-author');
   }
 }

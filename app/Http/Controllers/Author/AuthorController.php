@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Author;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Contracts\Services\AuthorServiceInterface;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Pagination\Paginator;
 use App\Author;
 use App\User;
 use Auth;
@@ -15,12 +16,6 @@ use Log;
 class AuthorController extends Controller
 {
 
-    private $authorService;
-
-    public function _construct(AuthorServiceInterface $authorService)
-    {
-        $this->authorService=$authorService;
-    }
     /**
      * Display a listing of the resource.
      *
@@ -29,9 +24,21 @@ class AuthorController extends Controller
     public function index()
     {
         //
-        $authors = DB::select('select * from authors WHERE
-        deleted_at IS NULL');
-        return view('list-author', ['authors' => $authors]);
+        
+        $search = Input::get ( 'search' );
+        Log:info($search);
+        if(count($search) > 0){
+            $results= DB::table('authors')->where('deleted_at', NULL)->where('name','LIKE','%'.$search.'%' )->paginate(2);
+            
+            
+            return view('list-author')->with('results', $results);
+        }
+        elseif(count($search)==null){
+            $authors=DB::table('authors')->where('deleted_at',NULL)->paginate(2);
+            return view('list-author')->with('authors', $authors);
+        }
+        else
+            return view('list-author')->withMessage('No Details found. Try to search again !');
     }
     /**
      * Get a validator for an incoming registration request.
@@ -81,17 +88,6 @@ class AuthorController extends Controller
         return redirect('list-author');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-        
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -131,7 +127,7 @@ class AuthorController extends Controller
            $author->name=request('name');
            $author->history=request('history');
            $author->description=request('description');
-           $author->create_user_id=auth()->id();
+           $author->create_user_id=Auth::user()->id;
            $author->updated_user_id=auth()->id();
            
            
@@ -145,14 +141,16 @@ class AuthorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $id)
+    public function destroy($id)
     {
         //
-        
-        $data = Author::find($id)->delete();
-        
-        
-        return redirect('/list-author');
+        $data = Author::find($id);
+        $data->deleted_user_id = auth()->id();
+        $data->deleted_at = now();
+        $data->save();
+        return redirect('list-author');
     }
+
+    
     
 }

@@ -35,7 +35,12 @@
                         <div class="form-group row">
                             <label for="history" class="col-md-4 control-label">History</label>
                                 <div class="col-md-8">
-                                <textarea class="form-control" id="history" name="history" rows="3">{{ old('history') }}</textarea>
+                                <textarea class="form-control{{ $errors->has('history') ? ' is-invalid' : '' }}" id="history" name="history" rows="3">{{ old('history') }}</textarea>
+                                @if ($errors->has('history'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('history') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 

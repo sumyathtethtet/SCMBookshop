@@ -19,7 +19,7 @@ class Author extends Model
      * @var array
      */
      protected $fillable = [
-        'name', 'history', 'description','create_user_id','updated_user_id'
+        'name', 'history', 'description','create_user_id','updated_user_id','deleted_user_id'
     ];
 
     public function author() {
@@ -36,4 +36,6 @@ class Author extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    
 }

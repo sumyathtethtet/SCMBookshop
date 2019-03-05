@@ -15,6 +15,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -33,13 +34,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
                     </ul>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
+                    <!-- Authentication Links -->
+                    @guest
+                        <!-- Right Side Of Navbar -->
+                        <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
@@ -48,7 +48,25 @@
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
+                        </ul>
                             @else
+                            <!-- Left Side Of Navbar -->
+                            <ul class="navbar-nav mr-auto">
+                                <li>
+                                    <a class="nav-link" href="/list-author">Author List<span class="sr-only">(current)</span></a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" href="#">Genre List<span class="sr-only">(current)</span></a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" href="#">Book List<span class="sr-only">(current)</span></a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" href="#">Order List<span class="sr-only">(current)</span></a>
+                                </li>
+                            </ul>
+                            <!-- Right Side Of Navbar -->
+                            <ul class="navbar-nav ml-auto">
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }} <span class="caret"></span>
@@ -66,8 +84,9 @@
                                         </form>
                                     </div>
                                 </li>
-                        @endguest
-                    </ul>
+                            </ul>
+                    @endguest
+                    
                 </div>
             </div>
         </nav>
@@ -76,13 +95,6 @@
             @yield('content')
         </main>
     </div>
-    <script>
-        $(document).ready(function () {
-            $('#dtBasicExample').DataTable({
-            "searching": false // false to disable search (or any other option)
-            });
-            $('.dataTables_length').addClass('bs-select');
-        });
-</script>
+   
 </body>
 </html>

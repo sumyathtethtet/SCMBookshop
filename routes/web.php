@@ -42,5 +42,9 @@ Route::post('/update-author','Author\AuthorCOntroller@update');
 //delete author
 Route::get('/delete-author/{authordelete_id}','Author\AuthorController@destroy');
 
+//
+Route::post('/search','Author\Authorcontroller@index');
+Route::get('/pagination', 'Author\Authorcontroller@index');
+
 
 
