@@ -56,7 +56,7 @@
                                     <a class="nav-link" href="/list-author">Author List<span class="sr-only">(current)</span></a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="#">Genre List<span class="sr-only">(current)</span></a>
+                                    <a class="nav-link" href="/list-genre">Genre List<span class="sr-only">(current)</span></a>
                                 </li>
                                 <li>
                                     <a class="nav-link" href="#">Book List<span class="sr-only">(current)</span></a>

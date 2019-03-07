@@ -5,8 +5,8 @@
 @section('content')
 <div class="container">
     <div class="col-md-8 my-4">
-        <h3 class="mb-5">Add Author</h3>
-                
+        <h3 class="mb-5">Add Genre</h3>
+                    
             @if (session('loginError'))
                 <div class="alert alert-danger">
                     {{ session('loginError') }}
@@ -17,28 +17,16 @@
                     <p>{{ $message }}</p>
                 </div>
             @endif
-                <form class="form-horizontal" method="POST" action="/add-author" enctype="multipart/form-data">
-                        {{ csrf_field() }}
-                        
+                <form class="form-horizontal" method="POST" action="/add-genre" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            
                         <div class="form-group row">
                             <label for="name" class="col-md-4 control-label">Name</label>
                             <div class="col-md-8">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" placeholder="Enter Author Name" >
+                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" placeholder="Enter Genre Name" >
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="history" class="col-md-4 control-label">History</label>
-                                <div class="col-md-8">
-                                <textarea class="form-control{{ $errors->has('history') ? ' is-invalid' : '' }}" id="history" name="history" rows="3">{{ old('history') }}</textarea>
-                                @if ($errors->has('history'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('history') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -56,10 +44,10 @@
                                 <button type="submit" class="btn btn-primary" value="add">
                                     Add
                                 </button>
-                                <a class="btn btn-info" href="/add-author">Clear</a>
+                                <a class="btn btn-info" href="/add-genre">Clear</a>
                             </div>
                         </div>
-                        
+                            
                 </form>
     </div>
 </div>

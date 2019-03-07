@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\Author;
+namespace App\Http\Controllers\Genre;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
-use App\Contracts\Services\AuthorServiceInterface;
-use App\Author;
+use App\Contracts\Services\GenreServiceInterface;
+use App\Genre;
 
-class AuthorController extends Controller
+class GenreController extends Controller
 {
-    private $authorInterface;
+    private $genreInterface;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(AuthorServiceInterface $authorInterface)
+    public function __construct(GenreServiceInterface $genreInterface)
     {
-        $this->authorInterface = $authorInterface;
+        $this->genreInterface = $genreInterface;
     }
 
     /**
@@ -33,17 +33,17 @@ class AuthorController extends Controller
         //
         $search = Input::get ( 'search' );
         if(count($search) > 0){
-            $results=$this->authorInterface->searchAuthorList($search);
-            return view('list-author')->with('results', $results);
+            $results=$this->genreInterface->searchGenreList($search);
+            return view('list-genre')->with('results', $results);
         }
 
         elseif(count($search)==null){
-            $authors=$this->authorInterface->authorList();
-            return view('list-author')->with('authors', $authors);
+            $genres=$this->genreInterface->genreList();
+            return view('list-genre')->with('genres', $genres);
         }
 
         else
-            return view('list-author')->withMessage('No Details found. Try to search again !');
+            return view('list-genre')->withMessage('No Details found. Try to search again !');
     }
 
     /**
@@ -52,13 +52,12 @@ class AuthorController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
-        return Validator::make($data,[
-            'name' => ['required', 'string', 'max:255'],
-            'history' => ['required'],
-        ]);
-    }
+     protected function validator(array $data)
+     {
+         return Validator::make($data,[
+             'name' => ['required', 'string', 'max:255'],           
+         ]);
+     }
 
     /**
      * Store a newly created resource in storage.
@@ -70,28 +69,26 @@ class AuthorController extends Controller
     {
         //
         $this->validator($request->all())->validate();
-        $this->authorInterface->create($request->all());
-        return redirect('list-author');
+        $this->genreInterface->create($request->all());
+        return redirect('list-genre');
     }
 
     /**
-    * Show the form for editing the specified resource.
+     * Show the form for editing the specified resource.
      *
-     * @param  int  $authoredit_id
+     * @param  int  $generedit_id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Author $authoredit_id)
+    public function edit(Genre $genreedit_id)
     {
-        //
-        $authors = $this->authorInterface->getAuthor();
-        return view('author.edit-author',compact('authors','authoredit_id'));
+        $genres = $this->genreInterface->getGenre();
+        return view('genre.edit-genre',compact('genres','genreedit_id'));
     }
-       
+
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -99,12 +96,11 @@ class AuthorController extends Controller
         //
         $this->validate(request(),[
             'name'=>'required',
-            'history'=>'required',
         ]);
 
         $author=request('postid');
-        $author=$this->authorInterface->updateAuthor($author);
-        return redirect('list-author');
+        $author=$this->genreInterface->updateGenre($author);
+        return redirect('list-genre');
     }
 
     /**
@@ -116,7 +112,7 @@ class AuthorController extends Controller
     public function destroy($id)
     {
         //
-        $this->authorInterface->deleteAuthor($id);
-        return redirect('list-author');
+        $this->genreInterface->deleteGenre($id);
+        return redirect('list-genre');
     }
 }

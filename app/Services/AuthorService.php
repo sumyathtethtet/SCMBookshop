@@ -12,7 +12,7 @@ class AuthorService implements AuthorServiceInterface
 
   /**
    * Class Constructor
-   * @param OperatorUserDaoInterface
+   * @param AuthorDaoInterface
    * @return
    */
   public function __construct(AuthorDaoInterface $authorDao)
@@ -20,13 +20,38 @@ class AuthorService implements AuthorServiceInterface
     $this->authorDao = $authorDao;
   }
 
-  /**
-   * Get User List
-   * @param Object
-   * @return $userList
-   */
-  public function deleteAuthor($request)
+  public function searchAuthorList($search)
   {
-    $this->authorDao->deleteAuthor($request);
+    return $this->authorDao->searchAuthorList($search);
+  }
+
+  public function authorList()
+  {
+    return $this->authorDao->authorList();
+  }
+
+  /**
+  * Get User List
+  * @param Object
+  * @return $userList
+  */
+  public function create(array $data)
+  {
+    $this->authorDao->create($data);
+  }
+
+  public function getAuthor()
+  {
+    return $this->authorDao->getAuthor();
+  } 
+  
+  public function updateAuthor($author)
+  {
+    return $this->authorDao->updateAuthor($author);
+  }
+
+  public function deleteauthor($id)
+  {
+    return $this->authorDao->deleteAuthor($id);
   }
 }

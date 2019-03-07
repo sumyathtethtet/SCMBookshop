@@ -44,11 +44,10 @@
                         <button type="submit" class="btn btn-primary" value="update">
                             Update
                         </button>
-                        <button type="submit" class="btn btn-primary" value="clear">
-                            Clear
-                        </button>
+                        <a class="btn btn-info" href="/edit-author">Clear</a>
                     </div>
                 </div>
+                
 
             </form>
     </div>

@@ -12,6 +12,8 @@ use Mail;
 use App\Http\Controllers\Auth;
 use App\Mail\WelcomeMail;
 use Illuminate\Auth\Events\Registered;
+use App\Contracts\Services\UserServiceInterface;
+use Log;
 
 class RegisterController extends Controller
 {
@@ -27,6 +29,7 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    private $userInterface;
 
     /**
      * Where to redirect users after registration.
@@ -40,9 +43,11 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    
+    public function __construct(UserServiceInterface $userInterface)
     {
         $this->middleware('guest');
+        $this->userInterface = $userInterface;
     }
 
     /**
@@ -53,7 +58,7 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
-        event(new Registered($user = $this->create($request->all())));
+        event(new Registered($user = $this->userInterface->create($request->all())));
         $this->sendRegisterMail($request->email);
         return redirect('login');
     }
@@ -77,28 +82,7 @@ class RegisterController extends Controller
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function create(array $data)
-    {
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'phone'=> $data['phone'],
-            'dob'=> $data['dob'],
-            'profile'=> $data['profile'],
-            'create_user_id' => 1,
-            'updated_user_id'=> 1,
-        ]);
-        $profile = time().'.'.request()->profile->getClientOriginalExtension();
-        request()->profile->move(public_path('myFile'), $profile);
-    }
-
+   
     /**
      * Create a new controller instance to send email after a valid registration.
      *

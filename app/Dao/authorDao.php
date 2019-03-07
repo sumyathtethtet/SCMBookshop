@@ -4,34 +4,61 @@ namespace App\Dao;
 
 use App\Contracts\Dao\AuthorDaoInterface;
 use App\Contracts\Services\AuthorServiceInterface;
+use Illuminate\Pagination\Paginator;
 use App\Author;
+use Config;
+use Auth;
 
 class AuthorDao implements AuthorDaoInterface
 {
-private $authorService;
   
-    /**
-     * Class Constructor
-     * @param OperatorUserDaoInterface
-     * @return
-     */
-    public function __construct(AuthorServiceInterface $authorService)
-    {
-      $this->authorService = $authorService;
-    }
-  /**
-   * Get Operator List
-   * @param Object
-   * @return $operatorList
-   */
-  public function deleteAuthor($request)
+
+  public function searchAuthorList($search)
   {
-    $data = Author::find($request)->delete();
-    $author=new Author;
+    $author = new Author;
     
-            $author->deleted_user_id = auth()->id();
+    return $author->where('deleted_at', NULL)->where('name','LIKE','%'.$search.'%' )->paginate(Config::get('constant.option_pagination'))->appends(['search' => $search]);
+  }
+
+  public function authorList()
+  {
+    $author= new Author;
+    return $author->where('deleted_at', NULL)->paginate(Config::get('constant.option_pagination'));
     
-            $author->save();
-    return redirect('/list-author');
+  }
+
+  public function create(array $data)
+  {
+      $user = Author::create([
+      'name' => $data['name'],
+      'history' => $data['history'],
+      'description'=> $data['description'],
+      'create_user_id' => Auth::user()->id,
+      'updated_user_id'=> Auth::user()->id,
+    ]);
+  }
+
+  public function getAuthor()
+  {
+    return Author::get();
+  }
+  
+  public function updateAuthor($author)
+  {
+    $author=Author::find($author);
+    $author->name=request('name');
+    $author->history=request('history');
+    $author->description=request('description');
+    $author->create_user_id=Auth::user()->id;
+    $author->updated_user_id=auth()->id();
+    $author->save();
+  }
+
+  public function deleteAuthor($id)
+  {
+    $data = Author::find($id);
+    $data->deleted_user_id = auth()->id();
+    $data->deleted_at = now();
+    $data->save();
   }
 }

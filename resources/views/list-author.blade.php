@@ -2,13 +2,14 @@
 
 @section('content')
 <div class="container">
+<h2>Author List</h2>
   <div class="row">
     <div class="col-md-4">
       <p>Name</p>
     </div>
 
     <div class="col-md-4">
-      <form action="/search" method="POST" role="search">
+      <form action="/list-author" method="POST" role="search">
         {{ csrf_field() }}
 
         <div class="input-group">
@@ -69,24 +70,17 @@
           </tr>
         <?php $i++; ?>
         @endforeach
-      
+        
       @endif
       
     </tbody>
     <tfoot>
-      <tr>
-        <th>Name</th>
-        <th>Position</th>
-        <th>Office</th>
-        <th>Age</th>
-        <th>Start date</th>
-        <th>Salary</th>
-      </tr>
+      
     </tfoot>
   </table>
   @if(isset($results))
-  {{ $results->links() }}
-
+  {{ $results->appends(Request::get('page'))->links()}}
+  
   @elseif(isset($results)==null)
   {{ $authors->links() }}
 
