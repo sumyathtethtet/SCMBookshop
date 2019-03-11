@@ -12,7 +12,6 @@ use Auth;
 class AuthorDao implements AuthorDaoInterface
 {
   
-
   public function searchAuthorList($search)
   {
     $author = new Author;

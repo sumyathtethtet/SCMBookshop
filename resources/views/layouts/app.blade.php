@@ -95,6 +95,23 @@
             @yield('content')
         </main>
     </div>
-   
+    <script type="text/javascript">
+    $(document).ready(function()
+      {
+    $('#newphotodiv').hide(); //div
+
+        $("#old").click(function() // radio
+        {
+          $('#newphotodiv').hide(); // div
+          $('#oldphotodiv').show(); // div
+        });
+
+        $("#new").click(function() // radio
+        {
+          $('#newphotodiv').show(); // div
+          $('#oldphotodiv').hide(); // div
+        });
+      });
+        </script>
 </body>
 </html>

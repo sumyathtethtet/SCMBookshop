@@ -13,7 +13,6 @@ use App\Http\Controllers\Auth;
 use App\Mail\WelcomeMail;
 use Illuminate\Auth\Events\Registered;
 use App\Contracts\Services\UserServiceInterface;
-use Log;
 
 class RegisterController extends Controller
 {

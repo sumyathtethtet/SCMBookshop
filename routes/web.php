@@ -47,8 +47,16 @@ Route::post('/add-genre','Genre\GenreController@store');
 Route::get('/edit-genre/{genreedit_id}','Genre\GenreController@edit');
 Route::post('/update-genre','Genre\GenreCOntroller@update');
 Route::get('/delete-genre/{genredelete_id}','Genre\GenreController@destroy');
-Route::post('/list-genre','Genre\Genrecontroller@index');
-Route::get('/pagination', 'Genre\Genrecontroller@index');
+Route::post('/list-genre','Genre\GenreController@index');
+Route::get('/pagination', 'Genre\GenreController@index');
 
+//book
+Route::get('/list-book','Book\BookController@index');
+Route::get('/add-book','Book\BookController@show');
+Route::post('/add-book','Book\BookController@store');
+Route::get('/edit-book/{bookedit_id}','Book\BookController@edit');
+Route::post('/update-book','Book\BookController@update');
+Route::post('/list-book','Book\BookController@index');
+Route::get('/pagination', 'Book\BookController@index');
 
 
