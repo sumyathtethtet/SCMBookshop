@@ -76,10 +76,10 @@
                             <div class="col-md-8">
                             
                                 
-                                    
-                                    <input type="text" name="oldphoto" value="{{  $bookedit_id->image }}">
-                                
-                                    <input type="file" name="newphoto" id="name" class="form-control-file" >
+                                    <img src="{{  $bookedit_id->image }}" width="50px" height="50px">
+                                    <input type="hidden" name="oldImage" value="{{  $bookedit_id->image }}">
+                        
+                                    <input type="file" name="image" id="name" class="form-control-file" >
                                 
                             </div>          
                         </div>
@@ -87,12 +87,9 @@
                         <div class="form-group row">
                             <label for="sample_pdf" class="col-md-4 control-label">Sample PDF</label>
                                 <div class="col-md-8">
-                                <input id="sample_pdf" type="file" class="form-control{{ $errors->has('sample_pdf') ? ' is-invalid' : '' }}" name="sample_pdf" value="{{ $bookedit_id->sample_pdf }}">
-                                @if ($errors->has('sample_pdf'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('sample_pdf') }}</strong>
-                                    </span>
-                                @endif
+                                <input type="hidden" name="oldPDF" value="{{  $bookedit_id->sample_pdf }}">{{ $bookedit_id->sample_pdf }}
+                                <input id="sample_pdf" type="file" class="form-control" name="sample_pdf" value="{{ $bookedit_id->sample_pdf }}">
+                                
                             </div>
                         </div>
 

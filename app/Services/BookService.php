@@ -20,9 +20,9 @@ class BookService implements BookServiceInterface
     $this->bookDao = $bookDao;
   }
 
-  public function searchBookList($search)
+  public function searchBookList(array $data)
   {
-    return $this->bookDao->searchBookList($search);
+    return $this->bookDao->searchBookList($data);
   }
 
   public function bookList()
@@ -48,5 +48,15 @@ class BookService implements BookServiceInterface
   public function getBook()
   {
     return $this->bookDao->getBook();
+  }
+
+  public function updateBook($request,$book)
+  {
+    return $this->bookDao->updateBook($request,$book);
+  }
+
+  public function deleteBook($id)
+  {
+    return $this->bookDao->deleteBook($id);
   }
 }

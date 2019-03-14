@@ -16,7 +16,10 @@ class AuthorDao implements AuthorDaoInterface
   {
     $author = new Author;
     
-    return $author->where('deleted_at', NULL)->where('name','LIKE','%'.$search.'%' )->paginate(Config::get('constant.option_pagination'))->appends(['search' => $search]);
+    return $author->whereNull('deleted_at')
+    ->where('name','LIKE','%'.$search.'%' )
+    ->paginate(Config::get('constant.option_pagination'))
+    ->appends(['search' => $search]);
   }
 
   public function authorList()

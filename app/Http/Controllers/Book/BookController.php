@@ -7,9 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Contracts\Services\BookServiceInterface;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Auth\Events\Registered;
 use App\Book;
 use Log;
+use Config;
+
 
 class BookController extends Controller
 {
@@ -34,18 +37,25 @@ class BookController extends Controller
     {
         //
         $search = Input::get ( 'search' );
-        if(count($search) > 0){
-            $results=$this->bookInterface->searchBookList($search);
-            return view('list-book')->with('results', $results);
+        $genre = Input::get ('genre'); 
+        $author = Input::get ('author');
+        $data = array($search, $author, $genre);
+        $genres=$this->bookInterface->getGenre();
+        $authors=$this->bookInterface->getAuthor();
+
+        if(count($data[0]) !=null || count($data[1]) !=null || count($data[2]) !=null){
+            $results=$this->bookInterface->searchBookList($data);
+            
+            return view('list-book',compact('results','genres','authors'));
         }
 
-        elseif(count($search)==null){
+        elseif($data[0] ==null || $data[1] ==null || $data[2] ==null){
             $books=$this->bookInterface->bookList();
-            return view('list-book')->with('books', $books);
+            return view('list-book',compact('books','genres','authors'));
         }
 
         else
-            return view('list-book')->withMessage('No Details found. Try to search again !');
+        return view('list-book',compact('genres','authors'))->withMessage('No Details found. Try to search again !');
     }
 
     /**
@@ -57,19 +67,16 @@ class BookController extends Controller
     public function store(Request $request)
     {
         //
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:books',
+        $this->validate(request(),[
+            'name' => 'required|max:255',
             'price' => 'required',
-            'author_id' => 'required',
-            'genre_id' => 'required',
-            'image' => 'required|mimes:jpg,png',
-            'sample_pdf' => 'required|mines:pdf,docx',
+            'image'=>'image|mimes:jpg,png',
+            'sample_pdf' => 'required|mimes:pdf,docx',
             'published_date' => 'required',
-            'description' => 'required',
         ]);
         
         $this->bookInterface->create($request->all());
-        return view('list-book');
+        return redirect('list-book');
     }
 
     /**
@@ -108,61 +115,21 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
         $this->validate(request(),[
-            'name' => 'required|unique:books',
+            'name' => 'required|max:255',
             'price' => 'required',
-            'author_id' => 'required',
-            'genre_id' => 'required',
-            'image' => 'required|mimes:jpg,png',
-            'sample_pdf' => 'required|mines:pdf,docx',
+            'image'=>'image|mimes:jpg,png',
+            
             'published_date' => 'required',
-            'description' => 'required',
         ]);
 
-        $author=request('postid');
-        $author=$this->genreInterface->updateGenre($author);
-        return redirect('list-genre');
+        $book=request('postid');
+        $author=$this->bookInterface->updateBook($request,$book);
+        return redirect('list-book');
     }
-
-    // $this->validate(request(),[
-    //     'title'=>'required|min:5',
-
-    //     //'photo'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    //     'intro'=>'required|min:5',
-    //     'price'=>'required',
-    //     'description'=>'required|min:10'
-    // ]);
-    
-    // $fullImg= request('oldphoto');
-
-    // if($request->file('newphoto') !== null){
-    //     $imageName=time().'.'.request()->newphoto->getClientOriginalExtension();
-    // request()->newphoto->move(public_path('images'),$imageName);
-    // $fullImg='/images/'.$imageName;
-
-    // }
-
-
-    
-    // $cour=request('postid');
-     
-    
-    //     $courpost=CoursePost::find($cour);
-    //     $courpost->title=request('title');
-    //     $courpost->intro=request('intro');
-    //     $courpost->course_id=request('course');
-    //     $courpost->photo=$fullImg;
-    //     $courpost->price=request('price');
-    //     $courpost->description=request('description');
-    //     $courpost->specs=request('specs');
-    //     $courpost->lessons=request('lessons');
-    //     $courpost->instructor=request('instructor');
-    //     $courpost->duration=request('duration');
-    //     $courpost->user_id=auth()->id();
-    //     $courpost->save();
 
     /**
      * Remove the specified resource from storage.
@@ -173,5 +140,7 @@ class BookController extends Controller
     public function destroy($id)
     {
         //
+        $this->bookInterface->deleteBook($id);
+        return redirect('list-book');
     }
 }

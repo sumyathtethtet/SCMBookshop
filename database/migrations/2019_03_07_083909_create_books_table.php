@@ -24,7 +24,7 @@ class CreateBooksTable extends Migration
             $table->text('image')->nullable();
             $table->string('sample_pdf')->nullable();
             $table->date('published_date');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->integer('create_user_id')->unsigned();
             $table->foreign('create_user_id')->references('id')->on('users');
             $table->integer('updated_user_id')->unsigned();

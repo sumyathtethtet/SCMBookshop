@@ -59,7 +59,7 @@
                                     <a class="nav-link" href="/list-genre">Genre List<span class="sr-only">(current)</span></a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="#">Book List<span class="sr-only">(current)</span></a>
+                                    <a class="nav-link" href="/list-book">Book List<span class="sr-only">(current)</span></a>
                                 </li>
                                 <li>
                                     <a class="nav-link" href="#">Order List<span class="sr-only">(current)</span></a>
@@ -95,23 +95,5 @@
             @yield('content')
         </main>
     </div>
-    <script type="text/javascript">
-    $(document).ready(function()
-      {
-    $('#newphotodiv').hide(); //div
-
-        $("#old").click(function() // radio
-        {
-          $('#newphotodiv').hide(); // div
-          $('#oldphotodiv').show(); // div
-        });
-
-        $("#new").click(function() // radio
-        {
-          $('#newphotodiv').show(); // div
-          $('#oldphotodiv').hide(); // div
-        });
-      });
-        </script>
 </body>
 </html>

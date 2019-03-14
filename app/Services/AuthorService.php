@@ -50,7 +50,7 @@ class AuthorService implements AuthorServiceInterface
     return $this->authorDao->updateAuthor($author);
   }
 
-  public function deleteauthor($id)
+  public function deleteAuthor($id)
   {
     return $this->authorDao->deleteAuthor($id);
   }
