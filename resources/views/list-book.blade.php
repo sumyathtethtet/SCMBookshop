@@ -4,16 +4,13 @@
 <div class="container">
 <h2>Book List</h2>
   <div class="row">
-    <div class="col-md-2">
-      <p>Name</p>
-    </div>
     <div class="col-md-8">
-      <form action="/list-book" method="POST" role="search">
+      <form action="/search-book" method="POST" role="search">
           {{ csrf_field() }}             
           
           <div class="row">
             <div class="col-md-3">
-              <select name="author" >
+              <select class="form-control" name="author" >
                 <option value="">Author</option>
                   @foreach($authors as $author)
                     <option value="{{ $author->id }}">
@@ -24,7 +21,7 @@
             </div>
 
             <div class="col-md-3">
-              <select name="genre">
+              <select class="form-control" name="genre">
                 <option value ="">Genre</option>
                   @foreach($genres as $genre)
                     <option value="{{ $genre->id }}">
@@ -54,19 +51,38 @@
       </div>
     </div>
   </div>
+
+  <div class="col-md-2">
+      <div class="text-right">
+        <a class="btn btn-info" href="/upload-book">Upload</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-2">
+      <div class="text-right">
+        <a class="btn btn-info" href="/download-book"> Download</a>
+      </div>
+    </div>
+  </div>
   
-  <table id="table" class="table" width="100%">
+  <table class="table" style="width:90%; margin:0 auto;" >
     <thead>
-      <tr>
         <th>No</th>
         <th>Book Name</th>
         <th>Author Name</th>
         <th>Genre Name</th>
         <th>Price</th>
         <th>Sample PDF</th>
-        <th>Add To Cart</th>
-        <th>Edit</th>
-        <th>Delete</th>
+
+        @if(auth()->user()->type==1)
+          <th>Add To Cart</th>
+
+        @else
+          <th>Edit</th>
+          <th>Delete</th>
+        @endif
+
       </tr>
     </thead>
 
@@ -81,9 +97,15 @@
             <td>{{ $book->genre->name }}</td>
             <td>{{ $book->price }}</td>
             <td><a href="#">{{ $book->sample_pdf }}</a></td>
-            <td><a href="#">Add To cart</a></td>
-            <td><a href="/edit-book/{{ $book->id }}">Edit</a></td>
-            <td><a href="/delete-book/{{ $book->id }}">Delete</a></td>
+
+            @if(auth()->user()->type==1)
+              <td><a href="#">Add To cart</a></td>
+
+            @else
+              <td><a href="/edit-book/{{ $book->id }}">Edit</a></td>
+              <td><a href="/delete-book/{{ $book->id }}">Delete</a></td>
+            @endif
+
           </tr>
         <?php $i++; ?>
         @endforeach
@@ -97,9 +119,15 @@
             <td>{{ $book->genre->name }}</td>
             <td>{{ $book->price }}</td>
             <td><a href="#">{{ $book->sample_pdf }}</a></td>
-            <td><a href="#">Add To cart</a></td>
-            <td><a href="/edit-book/{{ $book->id }}">Edit</a></td>
-            <td><a href="/delete-book/{{ $book->id }}">Delete</a></td>
+
+            @if(auth()->user()->type==1)
+              <td><a href="#">Add To cart</a></td> 
+
+            @else
+              <td><a href="/edit-book/{{ $book->id }}">Edit</a></td>
+              <td><a href="/delete-book/{{ $book->id }}">Delete</a></td>
+            @endif
+
           </tr>
         <?php $i++; ?>
         @endforeach
@@ -113,7 +141,8 @@
   </table>
   
   @if(isset($results))
-  {{ $results->appends($_GET)->links() }}
+ 
+  {{ $results->links() }}
   
   @elseif(isset($results)==null)
   {{ $books->links() }}

@@ -12,6 +12,7 @@ use Illuminate\Auth\Events\Registered;
 use App\Book;
 use Log;
 use Config;
+use Auth;
 
 
 class BookController extends Controller
@@ -25,7 +26,9 @@ class BookController extends Controller
      */
     public function __construct(BookServiceInterface $bookInterface)
     {
-        $this->bookInterface = $bookInterface;
+        
+         $this->bookInterface = $bookInterface;
+        
     }
     
     /**
@@ -40,6 +43,7 @@ class BookController extends Controller
         $genre = Input::get ('genre'); 
         $author = Input::get ('author');
         $data = array($search, $author, $genre);
+        
         $genres=$this->bookInterface->getGenre();
         $authors=$this->bookInterface->getAuthor();
 

@@ -20,6 +20,7 @@ class GenreController extends Controller
      */
     public function __construct(GenreServiceInterface $genreInterface)
     {
+        $this->middleware('admin');
         $this->genreInterface = $genreInterface;
     }
 

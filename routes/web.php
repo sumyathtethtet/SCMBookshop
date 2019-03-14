@@ -57,7 +57,8 @@ Route::post('/add-book','Book\BookController@store');
 Route::get('/edit-book/{bookedit_id}','Book\BookController@edit');
 Route::post('/update-book','Book\BookController@update');
 Route::get('/delete-book/{bookdelete_id}','Book\BookController@destroy');
-Route::post('/list-book','Book\BookController@index');
+Route::post('/search-book','Book\BookController@index');
 Route::get('/pagination', 'Book\BookController@index');
+
 
 

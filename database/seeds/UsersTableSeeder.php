@@ -21,7 +21,7 @@ class UsersTableSeeder extends Seeder
             'dob'=>'1997-06-10',
             'create_user_id'=>'1',
             'updated_user_id'=>'1',
-            'type'=>'0',
+            'type'=>'2',
         ]);
     }
 }

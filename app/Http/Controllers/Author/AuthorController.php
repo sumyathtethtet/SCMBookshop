@@ -20,6 +20,7 @@ class AuthorController extends Controller
      */
     public function __construct(AuthorServiceInterface $authorInterface)
     {
+        $this->middleware('admin');
         $this->authorInterface = $authorInterface;
     }
 

@@ -34,6 +34,10 @@ class AppServiceProvider extends ServiceProvider
                 $query = str_replace(['%', '?'], ['%%', '%s'], $sql->sql);
                 $query = vsprintf($query, $sql->bindings);
                 Log::debug($query);
+
+                $this->app->resolving(LengthAwarePaginator::class, function ($paginator) {
+                    return $paginator->appends(array_except(Input::query(), $paginator->getPageName()));
+                });
             }
         );
     }

@@ -19,23 +19,26 @@ class BookDao implements BookDaoInterface
 {
   public function searchBookList(array $data)
     {
-      $name=$data[0];
-      $author=$data[1];
-      $genre=$data[2];
-      Log::info($data[0]);
-     
-      return Book::whereNull('deleted_at')
-                     ->where('name', 'LIKE', '%' . $name . '%')
-                     ->where('author_id', 'LIKE', '%' . $author. '%')
-                     ->where('genre_id','LIKE','%' . $genre. '%')
-                     ->paginate(Config::get('constant.option_pagination'));
-
+          $name   = $data[0];
+          $author = $data[1];
+          $genre  = $data[2];
+          $query = Book::whereNull('deleted_at')
+                  ->where('name', 'LIKE', '%' . $name . '%');
+          if ($author) {
+              $query = $query->where('author_id', $author);
+          }
+          if ($genre) {
+              $query = $query->where('genre_id', $genre);
+          }
+          return $query->paginate(Config::get('constant.option_pagination'));
+          
     }
 
   public function bookList()
     {
-      $book= new Book;
-      return $book->where('deleted_at', NULL)->paginate(Config::get('constant.option_pagination'));
+      
+      return Book::where('deleted_at', NULL)
+                  ->paginate(Config::get('constant.option_pagination'));
     }
 
   public function create($data)
