@@ -2,13 +2,22 @@
 
 @section('content')
 <div class="container">
+@if(Session::has('message'))
+  <p class="alert alert-success">{{ Session::get('message') }}</p>
+@endif
+
 <h2>Book List</h2>
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-6">
       <form action="/search-book" method="POST" role="search">
           {{ csrf_field() }}             
           
           <div class="row">
+
+          <div class="col-md-3">
+              <input type="text" class="form-control" name="search" placeholder="Name">
+            </div>
+
             <div class="col-md-3">
               <select class="form-control" name="author" >
                 <option value="">Author</option>
@@ -31,11 +40,9 @@
               </select>
             </div>
 
-            <div class="col-md-3">
-              <input type="text" class="form-control" name="search" placeholder="Search users">
-            </div>
+            
 
-            <div class="col-md-3">
+            <div class="col-md-2">
               <button type="submit" class="btn btn-default">
                 <span class="glyphicon glyphicon-search">Search</span>
               </button>
@@ -45,28 +52,36 @@
       </form>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-1">
       <div class="text-right">
         <a class="btn btn-info" href="/add-book"> Add</a>
       </div>
     </div>
-  </div>
+ 
 
-  <div class="col-md-2">
-      <div class="text-right">
-        <a class="btn btn-info" href="/upload-book">Upload</a>
+  <div class="col-md-4">
+  <form action="/import" method="POST" enctype="multipart/form-data">
+  {{ csrf_field() }}
+    <div class="row">
+      <div class=" form-control col-lg-7">
+          <input id="file" type="file" name="file">
+          </div>
+      <div class="col-lg-5">
+          <button class="btn btn-primary" type="submit">Import</button>
       </div>
     </div>
+  </form>
   </div>
 
-  <div class="col-md-2">
+
+  <div class="col-md-1">
       <div class="text-right">
         <a class="btn btn-info" href="/download-book"> Download</a>
       </div>
     </div>
   </div>
   
-  <table class="table" style="width:90%; margin:0 auto;" >
+  <table class="table" style="width:90%; margin:0 auto; margin-top:10px;" >
     <thead>
         <th>No</th>
         <th>Book Name</th>

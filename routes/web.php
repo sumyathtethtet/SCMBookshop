@@ -59,6 +59,6 @@ Route::post('/update-book','Book\BookController@update');
 Route::get('/delete-book/{bookdelete_id}','Book\BookController@destroy');
 Route::post('/search-book','Book\BookController@index');
 Route::get('/pagination', 'Book\BookController@index');
-
+Route::post('/import','Book\BookController@uploadFile');
 
 

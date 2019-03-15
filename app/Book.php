@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Author;
 use App\Genre;
+use DB;
+use Log;
 
 class Book extends Model
 {
@@ -42,4 +44,15 @@ class Book extends Model
      */
     protected $dates = ['deleted_at'];
 
+    public static function insertData($data){
+        if(!empty($data)) {
+            
+            DB::table('books')
+                ->where('name', $data['name'])
+                ->update($data);
+            }
+        else{
+                DB::table('books')->insert($data);
+            }
+    }
 }

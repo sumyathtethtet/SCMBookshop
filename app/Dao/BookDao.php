@@ -47,8 +47,11 @@ class BookDao implements BookDaoInterface
     $maxValue++;
     
     $file = Input::file('image');
-    $imageName=$data['name'].'.'.$file->getClientOriginalExtension();
-    $fullImg='/books/'.$maxValue.'/'.$imageName;
+
+    if(!empty($file)){
+      $imageName=$data['name'].'.'.$file->getClientOriginalExtension();
+      $fullImg='/books/'.$maxValue.'/'.$imageName;
+    }
     
 
     $filepdf = Input::file('sample_pdf');

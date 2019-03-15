@@ -1,0 +1,5 @@
+book new,1000,2,2,/books/1/1.jpg,book_sample.pdf,2019-01-01,dfghgf
+book new1,3500,1,1,book 1.jpg,book 1.pdf,2019-03-13,tst
+Book  new 2,12345,2,3,/books/1/Book 2.png,Book 2.docx,2019-03-01,teset
+Book new 3,5000,1,1,/books/4/Book 3.png,Book 3.docx,2019-03-21,test
+Book new 4,5000,3,2,/books/5/Book 4.png,Book 4.docx,2019-03-15,test

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="col-md-8 my-4">
-        <h3 class="mb-5">Add Author</h3>
+        <h3 class="mb-5">Edit Book</h3>
                 
             @if (session('loginError'))
                 <div class="alert alert-danger">
