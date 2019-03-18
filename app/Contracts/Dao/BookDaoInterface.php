@@ -12,5 +12,6 @@ interface BookDaoInterface
   public function getBook();
   public function updateBook($request,$author);
   public function deleteBook($id);
+  public function getDownloadFile();
   
 }

@@ -117,7 +117,7 @@
                                 <button type="submit" class="btn btn-primary" value="add">
                                     Add
                                 </button>
-                                <a class="btn btn-info" href="/add-author">Clear</a>
+                                <a class="btn btn-info" href="">Clear</a>
                             </div>
                         </div>
                 </form>

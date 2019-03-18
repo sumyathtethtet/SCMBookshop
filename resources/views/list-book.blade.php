@@ -76,7 +76,7 @@
 
   <div class="col-md-1">
       <div class="text-right">
-        <a class="btn btn-info" href="/download-book"> Download</a>
+        <a class="btn btn-info" href="/download-excel"> Download</a>
       </div>
     </div>
   </div>
@@ -105,9 +105,9 @@
       <?php $i=1; ?>
       @if(isset($results))
         @foreach($results as $book)
-          <tr>
+          <tr id="tr_{{$book->id}}">
             <td>{{ $i }}</td>
-            <td>{{ $book->name }}</td>
+            <td><a href="/detail-book/{{ $book->id }}">{{ $book->name }}</a></td>
             <td>{{ $book->author->name }}</td>
             <td>{{ $book->genre->name }}</td>
             <td>{{ $book->price }}</td>
@@ -118,7 +118,23 @@
 
             @else
               <td><a href="/edit-book/{{ $book->id }}">Edit</a></td>
-              <td><a href="/delete-book/{{ $book->id }}">Delete</a></td>
+              <td><a href="/delete-book/{{ $book->id }}" class="btn btn-danger btn-sm"data-tr="tr_{{$book->id}}"
+
+                           data-toggle="confirmation"
+
+                           data-btn-ok-label="Delete" data-btn-ok-icon="fa fa-remove"
+
+                           data-btn-ok-class="btn btn-sm btn-danger"
+
+                           data-btn-cancel-label="Cancel"
+
+                           data-btn-cancel-icon="fa fa-chevron-circle-left"
+
+                           data-btn-cancel-class="btn btn-sm btn-default"
+
+                           data-title="Are you sure you want to delete ?"
+
+                           data-placement="left" data-singleton="true">Delete</a></td>
             @endif
 
           </tr>
@@ -127,9 +143,9 @@
         <?php $i=1; ?>
       @elseif(isset($results)==null)
         @foreach($books as $book)
-          <tr>
+          <tr id="tr_{{$book->id}}">
             <td>{{ $i }}</td>
-            <td>{{ $book->name }}</td>
+            <td><a href="/detail-book/{{ $book->id }}">{{ $book->name }}</a></td>
             <td>{{ $book->author->name }}</td>
             <td>{{ $book->genre->name }}</td>
             <td>{{ $book->price }}</td>
@@ -140,7 +156,7 @@
 
             @else
               <td><a href="/edit-book/{{ $book->id }}">Edit</a></td>
-              <td><a href="/delete-book/{{ $book->id }}">Delete</a></td>
+              <td><a href="/delete-book/{{$book->id}}" id="btnDeleteProduct" id="id">delete</a></td>
             @endif
 
           </tr>

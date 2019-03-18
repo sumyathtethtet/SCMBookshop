@@ -59,4 +59,9 @@ class BookService implements BookServiceInterface
   {
     return $this->bookDao->deleteBook($id);
   }
+
+  public function getDownloadFile()
+  {
+    return $this->bookDao->getDownloadFile();
+  }
 }

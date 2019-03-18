@@ -7,12 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Contracts\Services\BookServiceInterface;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Session;
 use App\Book;
-use Excel;
-use Log;
 use Config;
 use Auth;
 
@@ -28,9 +23,7 @@ class BookController extends Controller
      */
     public function __construct(BookServiceInterface $bookInterface)
     {
-        
-         $this->bookInterface = $bookInterface;
-        
+        $this->bookInterface = $bookInterface;
     }
     
     /**
@@ -64,8 +57,15 @@ class BookController extends Controller
         return view('list-book',compact('genres','authors'))->withMessage('No Details found. Try to search again !');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function uploadFile(Request $request)
     {
+
         $file = $request->file('file');
             
             // File Details 
@@ -98,10 +98,10 @@ class BookController extends Controller
         
                     // Reading file
                     $file = fopen($filepath,"r");
-        
-                        $importData_arr = array();
-                        $i = 0;
-                        $u=1;
+
+                    $importData_arr = array();
+                    $i = 0;
+                    $u=1;
                         
                         while (($filedata = fgetcsv($file, 1000, ",")) !== FALSE) {
                             $num = count($filedata );
@@ -113,7 +113,6 @@ class BookController extends Controller
                                 }
                                 for ($c=0; $c < $num; $c++) {
                                     $importData_arr[$i][] = $filedata [$c];
-                                    
                                 }
                                 $i++;
                         }
@@ -121,38 +120,54 @@ class BookController extends Controller
                     fclose($file);
         
                     // Insert to MySQL database
-                    foreach($importData_arr as $importData){
-        
-                        $insertData = array(
-                            "name"=>$importData[0],
-                            "price"=>$importData[1],
-                            "author_id"=>$importData[2],
-                            "genre_id"=>$importData[3],
-                            "image"=>$importData[4],
-                            "sample_pdf"=>$importData[5],
-                            "published_date"=>$importData[6],
-                            "description"=>$importData[7],
-                            "create_user_id"=>auth()->user()->id,
-                            "updated_user_id"=>auth()->user()->id,
-                        );
-                        if(!empty($importData_arr)){
-                        Book::insertData($insertData);
-                        Session::flash('message','Import Successful.');
+                        foreach($importData_arr as $importData){
+            
+                            $insertData = array(
+                                "name"=>$importData[0],
+                                "price"=>$importData[1],
+                                "author_id"=>$importData[2],
+                                "genre_id"=>$importData[3],
+                                "image"=>$importData[4],
+                                "sample_pdf"=>$importData[5],
+                                "published_date"=>$importData[6],
+                                "description"=>$importData[7],
+                                "create_user_id"=>auth()->user()->id,
+                                "updated_user_id"=>auth()->user()->id,
+                            );
+                            Book::insertData($insertData);
                         }
-                        else
-                        Session::flash('message','Import is not success.');
-                    }
-                }
-                else{
-                  Session::flash('message','File too large. File must be less than 2MB.');
                 }
             }
-            else{
-                 Session::flash('message','Invalid File Extension.');
-            }
-        
         return redirect('list-book');
     }
+
+    /*Export CSV file*/
+    public function downloadFile(){       
+        $book=$this->bookInterface->getDownloadFile();
+        $tot_record_found=0;
+        
+        if(count($book)>0){
+            $tot_record_found=1;
+             
+            $CsvData=array('ID,Book Name,Author Name,Gener Name,Image,Sample PDF,Published Date,Description');          
+            foreach($book as $value){              
+                $CsvData[]=$value->id.','.$value->name.','.$value->author_id.','.$value->genre_id.','.$value->image.','.$value->sample_pdf.','.$value->published_date.','.$value->description;
+            }
+             
+            $filename="book.csv";
+            $file_path=base_path().'/'.$filename;   
+            $file = fopen($file_path,"w+");
+            foreach ($CsvData as $exp_data){
+              fputcsv($file,explode(',',$exp_data));
+            }   
+            fclose($file);          
+     
+            $headers = ['Content-Type' => 'application/csv'];
+            return response()->download($file_path,$filename,$headers );
+        }
+        return view('download',['record_found' =>$tot_record_found]);    
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -165,19 +180,18 @@ class BookController extends Controller
         $this->validate(request(),[
             'name' => 'required|max:255',
             'price' => 'required',
-            'image'=>'image|mimes:jpg,png',
+            'image'=>'required|image|mimes:jpg,png',
             'sample_pdf' => 'required|mimes:pdf,docx',
             'published_date' => 'required',
         ]);
         
         $this->bookInterface->create($request->all());
-        return redirect('list-book');
+        return redirect('/list-book');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show()
@@ -189,9 +203,20 @@ class BookController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     * @param $book_id
+     * @return \Illuminate\Http\Response
+     */
+    public function showDetail(Book $book_id)
+    {
+        //
+        return view('book.detail-book',compact('book_id'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $bookedit_id
      * @return \Illuminate\Http\Response
      */
     public function edit(Book $bookedit_id)
@@ -207,7 +232,6 @@ class BookController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)

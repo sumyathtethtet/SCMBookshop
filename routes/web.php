@@ -60,5 +60,7 @@ Route::get('/delete-book/{bookdelete_id}','Book\BookController@destroy');
 Route::post('/search-book','Book\BookController@index');
 Route::get('/pagination', 'Book\BookController@index');
 Route::post('/import','Book\BookController@uploadFile');
+Route::get('/download-excel', 'Book\BookController@downloadFile');
+Route::get('/detail-book/{book_id}','Book\BookController@showDetail');
 
 

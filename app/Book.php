@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Author;
 use App\Genre;
@@ -45,14 +44,15 @@ class Book extends Model
     protected $dates = ['deleted_at'];
 
     public static function insertData($data){
-        if(!empty($data)) {
-            
-            DB::table('books')
-                ->where('name', $data['name'])
-                ->update($data);
-            }
-        else{
-                DB::table('books')->insert($data);
-            }
+
+        $value=DB::table('books')->where('name', $data['name'])->get();
+
+        if($value->count() == 0){
+        Book::insert($data);
+        }
+        
+        else if(!empty($data)){
+            Book::where('name', $data['name'])->update($data);
+        }
     }
 }

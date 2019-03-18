@@ -11,11 +11,18 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/confirm.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-confirmation/1.0.5/bootstrap-confirmation.min.js"></script>
+    
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
+
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -106,4 +113,29 @@
         </main>
     </div>
 </body>
+<script>
+$(document).ready(function () 
+{
+    $('body').on('click', '#btnDeleteProduct', function () {
+        
+        var id = $(this).data("id");
+        var result=confirm("Are you sure want to delete?");
+        if(result){
+
+            $.ajax({
+                type:'get',
+                url:'/delete-book/{$book->id}',
+                data:{id:id},
+                success: function (data) {
+                    $("#id" + id).remove();
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+        }
+    });
+});
+</script>
+
 </html>

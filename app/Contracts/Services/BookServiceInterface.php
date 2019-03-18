@@ -12,4 +12,5 @@ interface BookServiceInterface
   public function getBook();
   public function updateBook($request,$book);
   public function deleteBook($id);
+  public function getDownloadFile();
 }

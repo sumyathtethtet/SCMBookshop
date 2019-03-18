@@ -44,7 +44,7 @@
                         <button type="submit" class="btn btn-primary" value="update">
                             Update
                         </button>
-                        <a class="btn btn-info" href="/edit-author">Clear</a>
+                        <a class="btn btn-info" href="">Clear</a>
                     </div>
                 </div>
                 

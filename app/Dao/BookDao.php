@@ -12,8 +12,6 @@ use App\Author;
 use App\Genre;
 use Config;
 use Auth;
-use Log;
-use DB;
 
 class BookDao implements BookDaoInterface
 {
@@ -48,10 +46,8 @@ class BookDao implements BookDaoInterface
     
     $file = Input::file('image');
 
-    if(!empty($file)){
-      $imageName=$data['name'].'.'.$file->getClientOriginalExtension();
-      $fullImg='/books/'.$maxValue.'/'.$imageName;
-    }
+    $imageName=$data['name'].'.'.$file->getClientOriginalExtension();
+    $fullImg='/books/'.$maxValue.'/'.$imageName;
     
 
     $filepdf = Input::file('sample_pdf');
@@ -130,6 +126,12 @@ class BookDao implements BookDaoInterface
     $data->deleted_user_id = auth()->id();
     $data->deleted_at = now();
     $data->save();
+  }
+
+  public function getDownloadFile()
+  {
+    return $book=Book::select('id','name','author_id','genre_id','image','sample_pdf','published_date','description')
+              ->get();
   }
 
 }
