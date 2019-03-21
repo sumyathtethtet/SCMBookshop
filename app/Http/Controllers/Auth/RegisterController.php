@@ -42,7 +42,6 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    
     public function __construct(UserServiceInterface $userInterface)
     {
         $this->middleware('guest');
@@ -81,13 +80,12 @@ class RegisterController extends Controller
         ]);
     }
 
-   
     /**
      * Create a new controller instance to send email after a valid registration.
      *
      * @param  $email
      */
-    public function sendRegistermail($email)
+    public static function sendRegistermail($email)
     {
         Mail::to($email)->send(new WelcomeMail());
     }

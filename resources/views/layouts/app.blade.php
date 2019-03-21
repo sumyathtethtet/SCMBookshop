@@ -60,7 +60,7 @@
                             @else
                             <!-- Left Side Of Navbar -->
                             <ul class="navbar-nav mr-auto">
-                            @if (auth()->user()->type==2)
+                            @if (auth()->user()->type==0)
                                 <li>
                                     <a class="nav-link" href="/list-author">Author List<span class="sr-only">(current)</span></a>
                                 </li>
@@ -71,7 +71,7 @@
                                 <li>
                                     <a class="nav-link" href="/list-book">Book List<span class="sr-only">(current)</span></a>
                                 </li>
-                            @if (auth()->user()->type==2)
+                            @if (auth()->user()->type==0)
                                 <li>
                                     <a class="nav-link" href="#">Order List<span class="sr-only">(current)</span></a>
                                 </li>
@@ -80,9 +80,15 @@
                             <!-- Right Side Of Navbar -->
                             <ul class="navbar-nav ml-auto">
                             @if (auth()->user()->type==1)
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#"> Cart List </a>
-                                </li>
+                            <li>
+                            @if(Session::has('cart'))
+                                @php $cart = Session::get('cart');  @endphp
+                            <div class="panel-heading">{{ count($cart)}}</div>
+                            @endif
+                            </li>
+                            <li>
+                            <a class="nav-link" href="/list-cart" >Cart List<span class="sr-only">(current)</span></a>
+                            </li>
                             @endif
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -135,7 +141,7 @@ $(document).ready(function ()
             });
         }
     });
-});
+    });
 </script>
 
 </html>

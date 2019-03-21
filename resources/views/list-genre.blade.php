@@ -64,7 +64,7 @@
               <td>{{ $genre->name }}</td>
               <td>{{ $genre->description }}</td>
               <td><a href="/edit-genre/{{ $genre->id }}">Edit</a></td>
-              <td><a href="/delete-genre/{{ $genre->id }}">Delete</a></td>
+              <td><a href="/delete-genre/{{ $genre->id }}"  id="btnDeleteProduct" id="id">Delete</a></td>
             </tr>
           <?php $i++; ?>
           @endforeach

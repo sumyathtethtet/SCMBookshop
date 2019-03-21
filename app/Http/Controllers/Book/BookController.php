@@ -7,10 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Contracts\Services\BookServiceInterface;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
+use Session;
 use App\Book;
+use App\Cart;
 use Config;
 use Auth;
-
+use DB;
 
 class BookController extends Controller
 {
@@ -142,7 +144,8 @@ class BookController extends Controller
     }
 
     /*Export CSV file*/
-    public function downloadFile(){       
+    public function downloadFile()
+    {       
         $book=$this->bookInterface->getDownloadFile();
         $tot_record_found=0;
         
@@ -241,7 +244,7 @@ class BookController extends Controller
             'name' => 'required|max:255',
             'price' => 'required',
             'image'=>'image|mimes:jpg,png',
-            
+            'sample_pdf' => 'required|mimes:pdf,docx',
             'published_date' => 'required',
         ]);
 

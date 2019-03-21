@@ -63,4 +63,13 @@ Route::post('/import','Book\BookController@uploadFile');
 Route::get('/download-excel', 'Book\BookController@downloadFile');
 Route::get('/detail-book/{book_id}','Book\BookController@showDetail');
 
+Route::get('/list-cart/{id}','Cart\CartController@addToCart');
+Route::get('/list-cart','Cart\CartController@getCart');
+Route::get('/remove-cart/{id}', 'Cart\CartController@removeCart');
+Route::get('/clear-cart','Cart\CartController@clearCart');
+
+Route::post('/confirm-cart','Cart\CartController@confirmBook');
+Route::get('/list-order','Cart\CartController@orderBook');
+Route::get('/confirm-book','Cart\CartController@confirm');
+
 

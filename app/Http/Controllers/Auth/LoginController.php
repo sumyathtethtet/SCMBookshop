@@ -73,7 +73,7 @@ class LoginController extends Controller
         }
     }
 
-   /**
+    /**
      * Create a new controller instance for logout.
      *
      * @return void

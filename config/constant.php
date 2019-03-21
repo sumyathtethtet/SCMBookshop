@@ -2,5 +2,5 @@
 <?php
   return array (
 
-          'option_pagination' => '4'
+          'option_pagination' => '50'
   );

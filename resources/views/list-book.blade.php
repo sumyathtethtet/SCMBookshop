@@ -114,27 +114,11 @@
             <td><a href="#">{{ $book->sample_pdf }}</a></td>
 
             @if(auth()->user()->type==1)
-              <td><a href="#">Add To cart</a></td>
+              <td><a href="/list-cart/{{ $book->id}}">Add To Cart</a></td>
 
             @else
               <td><a href="/edit-book/{{ $book->id }}">Edit</a></td>
-              <td><a href="/delete-book/{{ $book->id }}" class="btn btn-danger btn-sm"data-tr="tr_{{$book->id}}"
-
-                           data-toggle="confirmation"
-
-                           data-btn-ok-label="Delete" data-btn-ok-icon="fa fa-remove"
-
-                           data-btn-ok-class="btn btn-sm btn-danger"
-
-                           data-btn-cancel-label="Cancel"
-
-                           data-btn-cancel-icon="fa fa-chevron-circle-left"
-
-                           data-btn-cancel-class="btn btn-sm btn-default"
-
-                           data-title="Are you sure you want to delete ?"
-
-                           data-placement="left" data-singleton="true">Delete</a></td>
+              <td><a href="/delete-book/{{ $book->id }}" class="btn btn-danger btn-sm"data-tr="tr_{{$book->id}}">Delete</a></td>
             @endif
 
           </tr>
@@ -152,7 +136,7 @@
             <td><a href="#">{{ $book->sample_pdf }}</a></td>
 
             @if(auth()->user()->type==1)
-              <td><a href="#">Add To cart</a></td> 
+              <td><a href="/list-cart/{{$book->id}}">Add To Cart</a></td> 
 
             @else
               <td><a href="/edit-book/{{ $book->id }}">Edit</a></td>

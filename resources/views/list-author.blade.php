@@ -66,7 +66,7 @@
             <td>{{ $author->history }}</td>
             <td>{{ $author->description }}</td>
             <td><a href="/edit-author/{{ $author->id }}">Edit</a></td>
-            <td><a href="/delete-author/{{ $author->id }}">Delete</a></td>
+            <td><a href="/delete-author/{{ $author->id }}"  id="btnDeleteProduct" id="id">Delete</a></td>
           </tr>
         <?php $i++; ?>
         @endforeach

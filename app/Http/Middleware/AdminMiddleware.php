@@ -15,7 +15,7 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->user()->type == 2)
+        if(auth()->user()->type == 0)
             return $next($request);
         return redirect('/');
     }
