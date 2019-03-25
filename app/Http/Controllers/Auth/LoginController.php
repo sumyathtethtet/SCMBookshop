@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Log;
 use Validator;
+use Session;
 class LoginController extends Controller
 {
     /*
@@ -81,6 +82,7 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
+        Session::flush();
         return redirect('/login');
     }
 }
