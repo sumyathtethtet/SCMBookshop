@@ -1,2 +1,2 @@
 name,price,author_id,genre_id,image,sample_pdf,published_date,description
-book 14,998,3,2,books/book7.jpg,book7.pdf,2019-08-01,dfghjkjhgfd
+book4,1000,2,1,books/4/book4.jpg,book3.pdf,2019-08-01,dfghjkjhgfd

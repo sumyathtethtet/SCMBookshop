@@ -14,13 +14,13 @@
 
         <div class="input-group">
           <input type="text" class="form-control" name="search" placeholder="Search users">
-          <span class="input-group-btn"> 
+          <span class="input-group-btn">
             <button type="submit" class="btn btn-default">
                 <span class="glyphicon glyphicon-search">Search</span>
             </button>
           </span>
         </div>
-    
+
       </form>
     </div>
 
@@ -30,7 +30,7 @@
       </div>
     </div>
   </div>
-  
+
   <table id="table" class="table" cellspacing="0" width="100%">
     <thead>
       <tr>
@@ -44,7 +44,7 @@
     </thead>
 
     <tbody>
-      <?php $i=1; ?>
+      <?php $i = 1;?>
       @if(isset($results))
         @foreach($results as $author)
           <tr>
@@ -55,9 +55,9 @@
             <td><a href="/edit-author/{{ $author->id }}">Edit</a></td>
             <td><a href="/delete-author/{{ $author->id }}">Delete</a></td>
           </tr>
-        <?php $i++; ?>
+        <?php $i++;?>
         @endforeach
-        <?php $i=1; ?>
+        <?php $i = 1;?>
       @elseif(isset($results)==null)
         @foreach($authors as $author)
           <tr>
@@ -68,19 +68,19 @@
             <td><a href="/edit-author/{{ $author->id }}">Edit</a></td>
             <td><a href="/delete-author/{{ $author->id }}"  id="btnDeleteProduct" id="id">Delete</a></td>
           </tr>
-        <?php $i++; ?>
+        <?php $i++;?>
         @endforeach
-        
+
       @endif
-      
+
     </tbody>
     <tfoot>
-      
+
     </tfoot>
   </table>
   @if(isset($results))
   {{ $results->appends(Request::get('page'))->links()}}
-  
+
   @elseif(isset($results)==null)
   {{ $authors->links() }}
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Auth;
 use Closure;
 
 class UserMiddleware
@@ -13,10 +14,16 @@ class UserMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $guard = null)
     {
-        if(auth()->user()->type == 1)
+        if (Auth::guard($guard)->check() && auth()->user()->type == 1) {
             return $next($request);
+        }
+
+        if (Auth::guard($guard)->check() && auth()->user()->type == 0) {
+            return redirect('/home');
+        }
+
         return redirect('/');
     }
 }

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Genre;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Input;
 use App\Contracts\Services\GenreServiceInterface;
 use App\Genre;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
 class GenreController extends Controller
 {
@@ -32,19 +32,17 @@ class GenreController extends Controller
     public function index()
     {
         //
-        $search = Input::get ( 'search' );
-        if(count($search) > 0){
-            $results=$this->genreInterface->searchGenreList($search);
+        $search = Input::get('search');
+        if (count($search) > 0) {
+            $results = $this->genreInterface->searchGenreList($search);
             return view('list-genre')->with('results', $results);
-        }
-
-        elseif(count($search)==null){
-            $genres=$this->genreInterface->genreList();
+        } elseif (count($search) == null) {
+            $genres = $this->genreInterface->genreList();
             return view('list-genre')->with('genres', $genres);
+        } else {
+            return view('list-genre')->withMessage('No Details found. Try to search again !');
         }
 
-        else
-            return view('list-genre')->withMessage('No Details found. Try to search again !');
     }
 
     /**
@@ -53,12 +51,12 @@ class GenreController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-     protected function validator(array $data)
-     {
-         return Validator::make($data,[
-             'name' => ['required', 'string', 'max:255'],           
-         ]);
-     }
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -83,7 +81,7 @@ class GenreController extends Controller
     public function edit(Genre $genreedit_id)
     {
         $genres = $this->genreInterface->getGenre();
-        return view('genre.edit-genre',compact('genres','genreedit_id'));
+        return view('genre.edit-genre', compact('genres', 'genreedit_id'));
     }
 
     /**
@@ -95,12 +93,12 @@ class GenreController extends Controller
     public function update(Request $request)
     {
         //
-        $this->validate(request(),[
-            'name'=>'required',
+        $this->validate(request(), [
+            'name' => 'required',
         ]);
 
-        $author=request('postid');
-        $author=$this->genreInterface->updateGenre($author);
+        $author = request('postid');
+        $author = $this->genreInterface->updateGenre($author);
         return redirect('list-genre');
     }
 

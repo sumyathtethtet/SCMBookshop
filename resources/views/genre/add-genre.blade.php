@@ -1,12 +1,10 @@
 @extends('layouts.app')
 
-
-
 @section('content')
 <div class="container">
     <div class="col-md-8 my-4">
         <h3 class="mb-5">Add Genre</h3>
-                    
+
             @if (session('loginError'))
                 <div class="alert alert-danger">
                     {{ session('loginError') }}
@@ -19,7 +17,7 @@
             @endif
                 <form class="form-horizontal" method="POST" action="/add-genre" enctype="multipart/form-data">
                             {{ csrf_field() }}
-                            
+
                         <div class="form-group row">
                             <label for="name" class="col-md-4 control-label">Name</label>
                             <div class="col-md-8">
@@ -47,7 +45,7 @@
                                 <a class="btn btn-info" href="/add-genre">Clear</a>
                             </div>
                         </div>
-                            
+
                 </form>
     </div>
 </div>

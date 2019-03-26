@@ -2,22 +2,30 @@
 
 namespace App\Http\Controllers\Cart;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use App\Contracts\Services\OrderServiceInterface;
-use lluminate\Pagination\Paginator;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Session;
-use App\Mail\BookMail;
-use Mail;
-use Config;
 use App\Book;
 use App\Cart;
-use App\User;
+use App\Contracts\Services\CartServiceInterface;
+use App\Http\Controllers\Controller;
+use App\Mail\BookMail;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Mail;
 
 class CartController extends Controller
 {
+
+    private $cartInterface;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(CartServiceInterface $cartInterface)
+    {
+        $this->cartInterface = $cartInterface;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,13 +35,13 @@ class CartController extends Controller
     public function getCart()
     {
 
-        if(Session::has('cart')){
+        if (Session::has('cart')) {
             $cart = Session::get('cart');
-          
-            return view('list-cart')->with(['book'=>$cart]);
-            
+
+            return view('list-cart')->with(['book' => $cart]);
+
         }
-        return view('list-cart')->with(['book'=>[]]);
+        return view('list-cart')->with(['book' => []]);
     }
 
     /**
@@ -42,8 +50,9 @@ class CartController extends Controller
      * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function addToCart($id){
-        $bookCat = Book::where('id',$id)->first();
+    public function addToCart($id)
+    {
+        $bookCat = $this->cartInterface->getAdd($id);
         $oldCart = Session::has('cart') ? Session::get('cart') : [];
         $oldCart[$id] = $bookCat;
 
@@ -58,7 +67,7 @@ class CartController extends Controller
      * @param
      * @return \Illuminate\Http\Response
      */
-    public  function clearCart()
+    public function clearCart()
     {
         Session::forget('cart');
         return redirect('list-book');
@@ -69,37 +78,37 @@ class CartController extends Controller
      * @param $id
      * @return \Illuminate\Http\Response
      */
-    public  function removeCart($id)
+    public function removeCart($id)
     {
-            $products = session('cart');
+        $products = session('cart');
 
-            foreach ($products as $key => $value){
+        foreach ($products as $key => $value) {
 
-                if ($value->id == $id){
+            if ($value->id == $id) {
 
-                    unset($products [$key]);
-                }
+                unset($products[$key]);
             }
-            Session::put('cart',$products);
-            return redirect()->back();
+        }
+        Session::put('cart', $products);
+        return redirect()->back();
     }
 
-      /**
+    /**
      * Display a listing of the resource.
      *
      * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function confirmBook(Request $request)
-    { 
+    {
         $oldCart = Session::has('cart') ? Session::get('cart') : [];
-        foreach ($oldCart as $key => $cart){
+        foreach ($oldCart as $key => $cart) {
 
             $cart->quantity = $request->quantity[$key];
         }
 
-        Session::put('cart',$oldCart);
-       
+        Session::put('cart', $oldCart);
+
         return redirect('list-order');
     }
 
@@ -109,12 +118,12 @@ class CartController extends Controller
      */
     public function orderBook()
     {
-        if(Session::has('cart')){
-            
+        if (Session::has('cart')) {
+
             $cart = Session::get('cart');
-            return view('list-order')->with(['book'=>$cart]);
+            return view('list-order')->with(['book' => $cart]);
         }
-        return view('list-order')->with(['book'=>[]]);
+        return view('list-order')->with(['book' => []]);
     }
 
     /**
@@ -122,8 +131,8 @@ class CartController extends Controller
      *
      */
     public function confirm()
-    {    
-        $users = User::select('email')->where('type',0)->first();
+    {
+        $users = $this->cartInterface->getConfirm();
         $this->sendMail($users);
         Session::forget('cart');
         return redirect('list-book');
@@ -134,11 +143,9 @@ class CartController extends Controller
      *
      * @param  $email
      */
-     public static function sendmail($email)
-     {
-         Mail::to($email)->send(new BookMail());
-     }
+    public static function sendmail($email)
+    {
+        Mail::to($email)->send(new BookMail());
+    }
 
 }
-
-

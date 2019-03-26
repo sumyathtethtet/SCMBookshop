@@ -4,7 +4,7 @@
 <div class="container">
     <div class="col-md-8 my-4">
         <h3 class="mb-5">Edit Book</h3>
-                
+
             @if (session('loginError'))
                 <div class="alert alert-danger">
                     {{ session('loginError') }}
@@ -19,7 +19,7 @@
                         {{ csrf_field() }}
 
                         <input type="hidden" name="postid" value="{{$bookedit_id->id}}">
-                        
+
                         <div class="form-group row">
                             <label for="name" class="col-md-4 control-label">Name</label>
                             <div class="col-md-8">
@@ -56,7 +56,7 @@
                               </select>
                             </label>
                         </div>
-                        
+
                         <div class="form-group row">
                           <label for="genre" class="col-md-4 control-label">Genre</label>
                             <label class="col-md-8">
@@ -72,16 +72,16 @@
 
                         <div class="form-group row">
                             <label for="image" class="col-md-4 control-label">Image</label>
-                            
+
                             <div class="col-md-8">
-                            
-                                
+
+
                                     <img src="{{  $bookedit_id->image }}" width="50px" height="50px">
                                     <input type="hidden" name="oldImage" value="{{  $bookedit_id->image }}">
-                        
+
                                     <input type="file" name="image" id="name" class="form-control-file" >
-                                
-                            </div>          
+
+                            </div>
                         </div>
 
                         <div class="form-group row">
@@ -89,7 +89,7 @@
                                 <div class="col-md-8">
                                 <input type="hidden" name="oldPDF" value="{{  $bookedit_id->sample_pdf }}">{{ $bookedit_id->sample_pdf }}
                                 <input id="sample_pdf" type="file" class="form-control" name="sample_pdf" value="{{ $bookedit_id->sample_pdf }}">
-                                
+
                             </div>
                         </div>
 
@@ -111,7 +111,7 @@
                                     <textarea class="form-control" id="description" name="description" rows="3">{{ $bookedit_id->description }}</textarea>
                                 </div>
                         </div>
-                      
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary" value="add">

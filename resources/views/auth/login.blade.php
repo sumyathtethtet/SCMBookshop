@@ -16,7 +16,7 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                
+
                 <div class="card-body">
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
@@ -26,12 +26,12 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}"autofocus>
-                                
+
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                                   
+
                                 @endif
                             </div>
                         </div>
@@ -59,10 +59,14 @@
                         </div>
 
                         <div class="col-md-8 offset-md-4">
+                            <a href="/redirect" class="btn btn-primary">Login With Google</a>
+                        </div>
+
+                        <div class="col-md-8 offset-md-4">
                             <p>Are you a new user?<a class="btn btn-link" href="{{ route('register') }}">Register</a>
                             </p>
                         </div>
-                        
+
                     </form>
                 </div>
             </div>

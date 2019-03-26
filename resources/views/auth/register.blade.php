@@ -16,7 +16,7 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-                
+
 
                 <div class="card-body">
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
@@ -116,7 +116,7 @@
                                 </button>
                             </div>
                         </div>
-                        
+
                     </form>
                 </div>
             </div>

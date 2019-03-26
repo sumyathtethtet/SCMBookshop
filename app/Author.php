@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class Author extends Model
 {
@@ -12,22 +12,22 @@ class Author extends Model
 
     use SoftDeletes;
 
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'history', 'description','create_user_id','updated_user_id','deleted_user_id'
+        'name', 'history', 'description', 'create_user_id', 'updated_user_id', 'deleted_user_id',
     ];
 
-    public function author() {
+    public function author()
+    {
         return $this->belongsTo('App\User', 'create_user_id');
-      }
-    
+    }
+
     protected $hidden = [
-         'remember_token',
+        'remember_token',
     ];
 
     /**
@@ -37,5 +37,4 @@ class Author extends Model
      */
     protected $dates = ['deleted_at'];
 
-    
 }

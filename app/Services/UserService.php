@@ -8,8 +8,8 @@ use App\User;
 
 class UserService implements UserServiceInterface
 {
-  private $userDao;
-  
+    private $userDao;
+
     /**
      * Class Constructor
      * @param OperatorUserDaoInterface
@@ -17,16 +17,16 @@ class UserService implements UserServiceInterface
      */
     public function __construct(UserDaoInterface $userDao)
     {
-      $this->userDao = $userDao;
+        $this->userDao = $userDao;
     }
 
-  /**
-   * Get User List
-   * @param Object
-   * @return $userList
-   */
-  public function create(array $data)
-  {
-    $this->userDao->create($data);
-  }
+    /**
+     * Get User List
+     * @param Object
+     * @return $userList
+     */
+    public function create(array $data)
+    {
+        $this->userDao->create($data);
+    }
 }

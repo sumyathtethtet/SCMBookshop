@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Mail;
-use App\Http\Controllers\Auth;
-use App\Mail\WelcomeMail;
-use Illuminate\Auth\Events\Registered;
 use App\Contracts\Services\UserServiceInterface;
+use App\Http\Controllers\Auth;
+use App\Http\Controllers\Controller;
+use App\Mail\WelcomeMail;
+use App\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Mail;
 
 class RegisterController extends Controller
 {
@@ -25,7 +24,7 @@ class RegisterController extends Controller
     | validation and creation. By default this controller uses a trait to
     | provide this functionality without requiring any additional code.
     |
-    */
+     */
 
     use RegistersUsers;
     private $userInterface;
@@ -69,14 +68,14 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data,[
+        return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required','min:6'],               
-            'password_confirm' => ['required','min:6','same:password'],
-            'phone' => 'required|numeric',            
+            'password' => ['required', 'min:6'],
+            'password_confirm' => ['required', 'min:6', 'same:password'],
+            'phone' => 'required|numeric',
             'dob' => 'required|date',
-            'profile'=>'required',
+            'profile' => 'required',
         ]);
     }
 
@@ -90,4 +89,3 @@ class RegisterController extends Controller
         Mail::to($email)->send(new WelcomeMail());
     }
 }
-

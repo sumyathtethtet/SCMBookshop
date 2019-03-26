@@ -2,38 +2,36 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Author;
 use App\Genre;
-use DB;
-use Log;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class Book extends Model
 {
     //
     use Notifiable;
-    
+
     use SoftDeletes;
 
-    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'price', 'author_id','genre_id','image','sample_pdf','published_date','description','create_user_id','updated_user_id','deleted_user_id'
+        'name', 'price', 'author_id', 'genre_id', 'image', 'sample_pdf', 'published_date', 'description', 'create_user_id', 'updated_user_id', 'deleted_user_id',
     ];
-    
 
-    public function author(){
-    	return $this->belongsTo(Author::class);
+    public function author()
+    {
+        return $this->belongsTo(Author::class);
     }
 
-    public function genre(){
-    	return $this->belongsTo(Genre::class);
+    public function genre()
+    {
+        return $this->belongsTo(Genre::class);
     }
 
     /**
@@ -43,15 +41,14 @@ class Book extends Model
      */
     protected $dates = ['deleted_at'];
 
-    public static function insertData($data){
+    public static function insertData($data)
+    {
 
-        $value=DB::table('books')->where('name', $data['name'])->get();
+        $value = Book::where('name', $data['name'])->get();
 
-        if($value->count() == 0){
-        Book::insert($data);
-        }
-        
-        else if(!empty($data)){
+        if ($value->count() == 0) {
+            Book::insert($data);
+        } else if (!empty($data)) {
             Book::where('name', $data['name'])->update($data);
         }
     }

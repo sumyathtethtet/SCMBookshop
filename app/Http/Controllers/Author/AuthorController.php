@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Author;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Input;
-use App\Contracts\Services\AuthorServiceInterface;
 use App\Author;
+use App\Contracts\Services\AuthorServiceInterface;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
 class AuthorController extends Controller
 {
@@ -32,19 +32,19 @@ class AuthorController extends Controller
     public function index()
     {
         //
-        $search = Input::get ( 'search' );
-        if(count($search) > 0){
-            $results=$this->authorInterface->searchAuthorList($search);
+        $search = Input::get('search');
+        if (count($search) > 0) {
+            $results = $this->authorInterface->searchAuthorList($search);
             return view('list-author')->with('results', $results);
-        }
 
-        elseif(count($search)==null){
-            $authors=$this->authorInterface->authorList();
+        } elseif (count($search) == null) {
+            $authors = $this->authorInterface->authorList();
             return view('list-author')->with('authors', $authors);
+
+        } else {
+            return view('list-author');
         }
 
-        else
-            return view('list-author')->withMessage('No Details found. Try to search again !');
     }
 
     /**
@@ -55,7 +55,7 @@ class AuthorController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data,[
+        return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'history' => ['required'],
         ]);
@@ -76,7 +76,7 @@ class AuthorController extends Controller
     }
 
     /**
-    * Show the form for editing the specified resource.
+     * Show the form for editing the specified resource.
      *
      * @param  int  $authoredit_id
      * @return \Illuminate\Http\Response
@@ -85,9 +85,9 @@ class AuthorController extends Controller
     {
         //
         $authors = $this->authorInterface->getAuthor();
-        return view('author.edit-author',compact('authors','authoredit_id'));
+        return view('author.edit-author', compact('authors', 'authoredit_id'));
     }
-       
+
     /**
      * Update the specified resource in storage.
      *
@@ -97,13 +97,13 @@ class AuthorController extends Controller
     public function update(Request $request)
     {
         //
-        $this->validate(request(),[
-            'name'=>'required',
-            'history'=>'required',
+        $this->validate(request(), [
+            'name' => 'required',
+            'history' => 'required',
         ]);
 
-        $author=request('postid');
-        $author=$this->authorInterface->updateAuthor($author);
+        $author = request('postid');
+        $author = $this->authorInterface->updateAuthor($author);
         return redirect('list-author');
     }
 

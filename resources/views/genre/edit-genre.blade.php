@@ -19,14 +19,14 @@
                             @endif
                     </div>
                 </div>
-   
+
                 <div class="form-group row">
                     <label for="description" class="col-md-4 control-label">Description</label>
                     <div class="col-md-8">
                         <textarea class="form-control" id="description" name="description" rows="3">{{$genreedit_id->description}}</textarea>
                     </div>
                 </div>
-    
+
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" class="btn btn-primary" value="update">

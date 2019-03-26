@@ -4,7 +4,7 @@
 <div class="container">
     <div class="col-md-8 my-4">
         <h3 class="mb-5">Add Book</h3>
-                
+
             @if (session('loginError'))
                 <div class="alert alert-danger">
                     {{ session('loginError') }}
@@ -17,7 +17,7 @@
             @endif
                 <form class="form-horizontal" method="POST" action="/add-book" enctype="multipart/form-data">
                         {{ csrf_field() }}
-                        
+
                         <div class="form-group row">
                             <label for="name" class="col-md-4 control-label">Name</label>
                             <div class="col-md-8">
@@ -54,7 +54,7 @@
                               </select>
                             </label>
                         </div>
-                        
+
                         <div class="form-group row">
                           <label for="genre" class="col-md-4 control-label">Genre</label>
                             <label class="col-md-8">
@@ -105,7 +105,7 @@
                                     <textarea class="form-control" id="description" name="description" rows="3">{{ old('description') }}</textarea>
                                 </div>
                         </div>
-                      
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary" value="add">

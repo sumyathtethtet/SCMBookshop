@@ -3,10 +3,10 @@
 @section('content')
 <div class="container">
 
-<h2>Cart List</h2>          
+<h2>Cart List</h2>
 <form method="post" action="/confirm-cart">
     {{csrf_field()}}
-                
+
     <table class="table">
             <tr>
                 <th>Image</th>
@@ -33,13 +33,13 @@
             @endforeach
         @endif
         </table>
-        
+
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Confirm</button>
         </div>
-                            
+
 </form>
-                       
+
 </div>
 
 @endsection

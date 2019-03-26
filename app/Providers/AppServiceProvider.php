@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Schema;
 use DB;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\ServiceProvider;
 use Log;
 
 class AppServiceProvider extends ServiceProvider
@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Schema::defaultStringLength(191);
-     
+
         DB::listen(
             function ($sql) {
                 foreach ($sql->bindings as $i => $binding) {
@@ -50,16 +50,19 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
-        $this->app->bind('App\Contracts\Services\UserServiceInterface','App\Services\UserService');
-        $this->app->bind('App\Contracts\Dao\UserDaoInterface','App\Dao\UserDao');
+        $this->app->bind('App\Contracts\Services\UserServiceInterface', 'App\Services\UserService');
+        $this->app->bind('App\Contracts\Dao\UserDaoInterface', 'App\Dao\UserDao');
 
-        $this->app->bind('App\Contracts\Services\AuthorServiceInterface','App\Services\AuthorService');
-        $this->app->bind('App\Contracts\Dao\AuthorDaoInterface','App\Dao\AuthorDao');
+        $this->app->bind('App\Contracts\Services\AuthorServiceInterface', 'App\Services\AuthorService');
+        $this->app->bind('App\Contracts\Dao\AuthorDaoInterface', 'App\Dao\AuthorDao');
 
-        $this->app->bind('App\Contracts\Services\GenreServiceInterface','App\Services\GenreService');
-        $this->app->bind('App\Contracts\Dao\GenreDaoInterface','App\Dao\GenreDao');
+        $this->app->bind('App\Contracts\Services\GenreServiceInterface', 'App\Services\GenreService');
+        $this->app->bind('App\Contracts\Dao\GenreDaoInterface', 'App\Dao\GenreDao');
 
-        $this->app->bind('App\Contracts\Services\BookServiceInterface','App\Services\BookService');
-        $this->app->bind('App\Contracts\Dao\BookDaoInterface','App\Dao\BookDao');
+        $this->app->bind('App\Contracts\Services\BookServiceInterface', 'App\Services\BookService');
+        $this->app->bind('App\Contracts\Dao\BookDaoInterface', 'App\Dao\BookDao');
+
+        $this->app->bind('App\Contracts\Services\CartServiceInterface', 'App\Services\CartService');
+        $this->app->bind('App\Contracts\Dao\CartDaoInterface', 'App\Dao\CartDao');
     }
 }

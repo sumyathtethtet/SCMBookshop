@@ -22,7 +22,7 @@
 
                 <div class="form-group row">
                     <label for="history" class="col-md-4 control-label">History</label>
-                    <div class="col-md-8">    
+                    <div class="col-md-8">
                         <textarea class="form-control{{ $errors->has('history') ? ' is-invalid' : '' }}" id="history" rows="3" name="history">{{$authoredit_id->history}}</textarea>
                             @if ($errors->has('history'))
                                 <span class="invalid-feedback" role="alert">
@@ -31,14 +31,14 @@
                             @endif
                     </div>
                 </div>
-   
+
                 <div class="form-group row">
                     <label for="description" class="col-md-4 control-label">Description</label>
                     <div class="col-md-8">
                         <textarea class="form-control" id="description" name="description" rows="3">{{$authoredit_id->description}}</textarea>
                     </div>
                 </div>
-    
+
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" class="btn btn-primary" value="update">
@@ -47,7 +47,7 @@
                         <a class="btn btn-info" href="">Clear</a>
                     </div>
                 </div>
-                
+
 
             </form>
     </div>

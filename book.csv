@@ -1,20 +1,5 @@
 ID,"Book Name","Author Name","Gener Name",Image,"Sample PDF","Published Date",Description
-1,book1,1,2,/books/1/book1.png,book1.docx,2019-02-24,dfghjkl;lkjhgfds
-2,book2,1,4,/books/2/book2.png,book2.docx,2019-02-25,sdfrgthyukiop;oiujyhtgrf
-3,book3,2,5,/books/3/book3.png,book3.docx,2019-02-27,sdcfghjk.,mnbgfv
-4,"book new",2,2,/books/1/1.jpg,book_sample.pdf,2019-01-01,dfghgf
-5,"book new1",1,1,"book 1.jpg","book 1.pdf",2019-03-13,tst
-6,"Book  new 2",2,3,"/books/1/Book 2.png","Book 2.docx",2019-03-01,teset
-7,"Book new 3",1,1,"/books/4/Book 3.png","Book 3.docx",2019-03-21,test
-8,"Book new 4",3,2,"/books/5/Book 4.png","Book 4.docx",2019-03-15,test
-9,"book new new",2,2,book1/1/book1.jpg,book1_sample.pdf,2019-01-12,ttgvdfvgbnbv
-10,"book new new 1",2,2,book1/1/book1.jpg,book1_sample.pdf,2019-01-12,ttgvdfvgbnbv
-11,"book new new 2",2,2,book1/1/book1.jpg,book1_sample.pdf,2019-01-12,ttgvdfvgbnbv
-12,"book new new 3",2,2,book1/1/book1.jpg,book1_sample.pdf,2019-01-12,ttgvdfvgbnbv
-13,"book new new 4",2,2,book1/1/book1.jpg,book1_sample.pdf,2019-01-12,ttgvdfvgbnbv
-14,"book new new 5",2,2,book1/1/book1.jpg,book1_sample.pdf,2019-01-12,ttgvdfvgbnbv
-15,"book new new 6",2,2,book1/1/book1.jpg,book1_sample.pdf,2019-01-12,ttgvdfvgbnbv
-16,"book new new 7",1,2,book1/1/book1.jpg,book1_sample.pdf,2019-01-12,ttgvdfvgbnbv
-17,"book 4 ",1,2,book4.jpg,book4.pdf,2019-08-01,dfghjkjhgfd
-19,"book 5",2,1,book45.jpg,bppk5.pdf,2019-08-01,sdfghfdss
-20,"book 6",1,2,,book4.pdf,2019-08-01,dfghjkjhgfd
+1,book1,2,2,/books/1/book1.png,book1.docx,2019-02-26,dfghjkl;kjhgfd
+2,book2,2,2,/books/2/book2.png,book2.docx,2019-02-24,dsfghjkl;/kjhgf
+4,book3,1,2,books/3/book3.jpg,book3.pdf,2019-08-01,dfghjkjhgfd
+5,book4,2,1,books/4/book4.jpg,book3.pdf,2019-08-01,dfghjkjhgfd

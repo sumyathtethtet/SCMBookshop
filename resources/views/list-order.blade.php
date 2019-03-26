@@ -37,7 +37,7 @@
     </tfoot>
   </table>
 </div>
-<div class="row">  
+<div class="row">
     <div class="col-md-2 offset-md-3">
       <a href="/confirm-book" class="btn btn-primary">Confirm</a>
     </div>

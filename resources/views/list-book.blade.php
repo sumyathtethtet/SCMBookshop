@@ -10,8 +10,8 @@
   <div class="row">
     <div class="col-md-6">
       <form action="/search-book" method="POST" role="search">
-          {{ csrf_field() }}             
-          
+          {{ csrf_field() }}
+
           <div class="row">
 
           <div class="col-md-3">
@@ -40,7 +40,7 @@
               </select>
             </div>
 
-            
+
 
             <div class="col-md-2">
               <button type="submit" class="btn btn-default">
@@ -48,7 +48,7 @@
               </button>
             </div>
           </div>
-          
+
       </form>
     </div>
 
@@ -57,7 +57,7 @@
         <a class="btn btn-info" href="/add-book"> Add</a>
       </div>
     </div>
- 
+
 
   <div class="col-md-4">
   <form action="/import" method="POST" enctype="multipart/form-data">
@@ -80,7 +80,7 @@
       </div>
     </div>
   </div>
-  
+
   <table class="table" style="width:90%; margin:0 auto; margin-top:10px;" >
     <thead>
         <th>No</th>
@@ -102,10 +102,10 @@
     </thead>
 
     <tbody>
-      <?php $i=1; ?>
+      <?php $i = 1;?>
       @if(isset($results))
         @foreach($results as $book)
-          <tr id="tr_{{$book->id}}">
+          <tr>
             <td>{{ $i }}</td>
             <td><a href="/detail-book/{{ $book->id }}">{{ $book->name }}</a></td>
             <td>{{ $book->author->name }}</td>
@@ -122,12 +122,12 @@
             @endif
 
           </tr>
-        <?php $i++; ?>
+        <?php $i++;?>
         @endforeach
-        <?php $i=1; ?>
+        <?php $i = 1;?>
       @elseif(isset($results)==null)
         @foreach($books as $book)
-          <tr id="tr_{{$book->id}}">
+          <tr>
             <td>{{ $i }}</td>
             <td><a href="/detail-book/{{ $book->id }}">{{ $book->name }}</a></td>
             <td>{{ $book->author->name }}</td>
@@ -136,7 +136,7 @@
             <td><a href="#">{{ $book->sample_pdf }}</a></td>
 
             @if(auth()->user()->type==1)
-              <td><a href="/list-cart/{{$book->id}}">Add To Cart</a></td> 
+              <td><a href="/list-cart/{{$book->id}}">Add To Cart</a></td>
 
             @else
               <td><a href="/edit-book/{{ $book->id }}">Edit</a></td>
@@ -144,26 +144,26 @@
             @endif
 
           </tr>
-        <?php $i++; ?>
+        <?php $i++;?>
         @endforeach
-       
+
         @endif
-      
+
     </tbody>
     <tfoot>
-      
+
     </tfoot>
   </table>
-  
+
   @if(isset($results))
- 
+
   {{ $results->links() }}
-  
+
   @elseif(isset($results)==null)
   {{ $books->links() }}
 
   @endif
 
 
-  
+
 @endsection

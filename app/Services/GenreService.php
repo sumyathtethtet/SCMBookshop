@@ -8,50 +8,50 @@ use App\Genre;
 
 class GenreService implements GenreServiceInterface
 {
-  private $genreDao;
+    private $genreDao;
 
-  /**
-   * Class Constructor
-   * @param GenreDaoInterface
-   * @return
-   */
-  public function __construct(GenreDaoInterface $genreDao)
-  {
-    $this->genreDao = $genreDao;
-  }
+    /**
+     * Class Constructor
+     * @param GenreDaoInterface
+     * @return
+     */
+    public function __construct(GenreDaoInterface $genreDao)
+    {
+        $this->genreDao = $genreDao;
+    }
 
-  public function searchGenreList($search)
-  {
-    return $this->genreDao->searchGenreList($search);
-  }
+    public function searchGenreList($search)
+    {
+        return $this->genreDao->searchGenreList($search);
+    }
 
-  public function genreList()
-  {
-    return $this->genreDao->genreList();
-  }
+    public function genreList()
+    {
+        return $this->genreDao->genreList();
+    }
 
-  /**
-  * Get User List
-  * @param Object
-  * @return $userList
-  */
-  public function create(array $data)
-  {
-    $this->genreDao->create($data);
-  }
+    /**
+     * Get User List
+     * @param Object
+     * @return $userList
+     */
+    public function create(array $data)
+    {
+        $this->genreDao->create($data);
+    }
 
-  public function getGenre()
-  {
-    return $this->genreDao->getGenre();
-  }
-  
-  public function updateGenre($author)
-  {
-    return $this->genreDao->updateGenre($author);
-  }
+    public function getGenre()
+    {
+        return $this->genreDao->getGenre();
+    }
 
-  public function deleteGenre($id)
-  {
-    return $this->genreDao->deleteGenre($id);
-  }
+    public function updateGenre($author)
+    {
+        return $this->genreDao->updateGenre($author);
+    }
+
+    public function deleteGenre($id)
+    {
+        return $this->genreDao->deleteGenre($id);
+    }
 }

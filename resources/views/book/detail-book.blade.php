@@ -8,10 +8,10 @@
       <h1 class="my-4"> <small> Book Detail </small>
       </h1>
     </div>
-    
+
     <div class="col-lg-2 col-sm-12">
       <h1 class="my-4">
-        <a href="{{ url()->previous() }}" class="btn btn-outline-primary pull-right"> 
+        <a href="{{ url()->previous() }}" class="btn btn-outline-primary pull-right">
           <i class="fas fa-backward"></i> Go Back
         </a>
       </h1>
@@ -23,7 +23,7 @@
 					<label class="col-md-4 col-sm-12"> Book Name</label>
             <div class="col-md-8 col-sm-12">
 						  <p>{{ $book_id->name }}</p>
-				    </div>			    
+				    </div>
         </div>
 		  </div>
 
@@ -32,7 +32,7 @@
 					<label class="col-md-4 col-sm-12"> Price</label>
             <div class="col-md-8 col-sm-12">
 						  <p> {{ $book_id->price }}</p>
-					  </div>			    
+					  </div>
 				</div>
 			</div>
 
@@ -41,10 +41,10 @@
 					<label class="col-md-4 col-sm-12"> Author</label>
 
 					<div class="col-md-8 col-sm-12">
-						
+
 						<p> {{ $book_id->author->name }}</p>
-						
-					</div>			    
+
+					</div>
 				</div>
 			</div>
 
@@ -53,10 +53,10 @@
 					<label class="col-md-4 col-sm-12"> Genre </label>
 
 					<div class="col-md-8 col-sm-12">
-						
+
 						<p> {{ $book_id->genre->name }}</p>
-						
-					</div>			    
+
+					</div>
 				</div>
 			</div>
 
@@ -67,7 +67,7 @@
 					<div class="col-md-8 col-sm-12">
 						<img src="{{ $book_id->image }}" width="120px" height="150px">
 					</div>
-				</div>		
+				</div>
 			</div>
 
       <div class="form-group">
@@ -77,7 +77,7 @@
 					<div class="col-md-8 col-sm-12">
           <a href="#">{{ $book_id->sample_pdf }}</a>
 					</div>
-				</div>		
+				</div>
 			</div>
 
 			<div class="form-group">
@@ -85,10 +85,10 @@
 					<label class="col-md-4 col-sm-12"> Published Date </label>
 
 					<div class="col-md-8 col-sm-12">
-						
+
 						<p> {{ $book_id->published_date }}</p>
-						
-					</div>			    
+
+					</div>
 				</div>
 			</div>
 
@@ -99,7 +99,7 @@
 					<div class="col-md-8 col-sm-12">
 						<p> {!! $book_id->description !!}</p>
 					</div>
-				</div>			    
+				</div>
 			</div>
   </div>
 </div>

@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Log;
-use Validator;
 use Session;
+use Validator;
+
 class LoginController extends Controller
 {
     /*
@@ -20,7 +20,7 @@ class LoginController extends Controller
     | redirecting them to your home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
     |
-    */
+     */
 
     use AuthenticatesUsers;
 
@@ -52,25 +52,23 @@ class LoginController extends Controller
         $email = $request->email;
         $password = $request->password;
         // check validation
-        $validator = Validator::make($request->all(),[
-          'email'=> 'required|email',
-          'password'=>'required'
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
 
-        if ($validator->fails()){
-          return redirect('login')
+        if ($validator->fails()) {
+            return redirect('login')
                 ->withErrors($validator)
                 ->withInput();
         }
-  
-        if(Auth::attempt(['email'=>$email,'password'=>$password])){
-            Log::info("Login succeeded");
-            return redirect('/home')->with('success','login success');
-  
-        }else{
-            Log::info("Login failed");
+
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+            return redirect('/home')->with('success', 'login success');
+
+        } else {
             return redirect()->intended('login')
-                  ->with('loginError', 'User name or password is incorrect!');  
+                ->with('loginError', 'User name or password is incorrect!');
         }
     }
 
@@ -86,8 +84,3 @@ class LoginController extends Controller
         return redirect('/login');
     }
 }
-
-
-
-
-

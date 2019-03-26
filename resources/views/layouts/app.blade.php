@@ -17,7 +17,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-confirmation/1.0.5/bootstrap-confirmation.min.js"></script>
-    
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
@@ -90,6 +90,8 @@
                             <a class="nav-link" href="/list-cart" >Cart List<span class="sr-only">(current)</span></a>
                             </li>
                             @endif
+
+
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }} <span class="caret"></span>
@@ -109,7 +111,7 @@
                                 </li>
                             </ul>
                     @endguest
-                    
+
                 </div>
             </div>
         </nav>
@@ -120,10 +122,10 @@
     </div>
 </body>
 <script>
-$(document).ready(function () 
+$(document).ready(function ()
 {
     $('body').on('click', '#btnDeleteProduct', function () {
-        
+
         var id = $(this).data("id");
         var result=confirm("Are you sure want to delete?");
         if(result){

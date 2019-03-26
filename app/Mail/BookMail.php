@@ -5,11 +5,7 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Session;
-use App\User;
-use Auth;
-use Log;
 
 class BookMail extends Mailable
 {
@@ -32,12 +28,11 @@ class BookMail extends Mailable
      */
     public function build()
     {
-        if(Session::has('cart')){
+        if (Session::has('cart')) {
             $cart = Session::get('cart');
-            return $this->view('emails.welcome')->with(['book'=>$cart]);
+            return $this->view('emails.welcome')->with(['book' => $cart]);
         }
-        return $this->view('emails-welcome')->with(['book'=>[]]);
+        return $this->view('emails-welcome')->with(['book' => []]);
     }
 
-    
 }

@@ -14,13 +14,13 @@
 
           <div class="input-group">
             <input type="text" class="form-control" name="search" placeholder="Search genres">
-            <span class="input-group-btn"> 
+            <span class="input-group-btn">
               <button type="submit" class="btn btn-default">
                   <span class="glyphicon glyphicon-search">Search</span>
               </button>
             </span>
           </div>
-      
+
         </form>
       </div>
 
@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-  
+
     <table id="table" class="table" cellspacing="0" width="100%">
       <thead>
         <tr>
@@ -43,7 +43,7 @@
       </thead>
 
       <tbody>
-        <?php $i=1; ?>
+        <?php $i = 1;?>
         @if(isset($results))
           @foreach($results as $genre)
             <tr>
@@ -53,10 +53,10 @@
               <td><a href="/edit-genre/{{ $genre->id }}">Edit</a></td>
               <td><a href="/delete-genre/{{ $genre->id }}">Delete</a></td>
             </tr>
-          <?php $i++; ?>
+          <?php $i++;?>
           @endforeach
-          
-          <?php $i=1; ?>
+
+          <?php $i = 1;?>
         @elseif(isset($results)==null)
           @foreach($genres as $genre)
             <tr>
@@ -66,11 +66,11 @@
               <td><a href="/edit-genre/{{ $genre->id }}">Edit</a></td>
               <td><a href="/delete-genre/{{ $genre->id }}"  id="btnDeleteProduct" id="id">Delete</a></td>
             </tr>
-          <?php $i++; ?>
+          <?php $i++;?>
           @endforeach
-        
+
         @endif
-        
+
       </tbody>
       <tfoot>
 
