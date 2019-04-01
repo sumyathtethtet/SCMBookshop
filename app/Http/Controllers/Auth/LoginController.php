@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Contracts\Services\LoginServiceInterface;
 use Session;
+use Socialite;
 use Validator;
 
 class LoginController extends Controller
@@ -36,9 +39,11 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(LoginServiceInterface $loginInterface)
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest', ['except' => ['logout']]);
+        $this->loginInterface=$loginInterface;
+
     }
 
     /**
@@ -51,6 +56,7 @@ class LoginController extends Controller
     {
         $email = $request->email;
         $password = $request->password;
+
         // check validation
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -73,13 +79,43 @@ class LoginController extends Controller
     }
 
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback()
+    {
+        try {
+            $user = Socialite::driver('google')->user();
+        } catch (Exception $e) {
+            return redirect('/login');
+        }
+
+        // check if they're an existing user
+        $existingUser = User::where('email', $user->email)->first();
+        if ($existingUser) {
+            // log them in
+            auth()->login($existingUser, true);
+        } else {
+            // create a new user
+            $this->loginInterface->googleLogin();
+        }
+        return redirect('/home');
+    }
+    /**
      * Create a new controller instance for logout.
      *
      * @return void
      */
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::logout();
+        auth()->logout();
         Session::flush();
         return redirect('/login');
     }

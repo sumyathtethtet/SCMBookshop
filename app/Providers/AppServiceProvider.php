@@ -64,5 +64,8 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind('App\Contracts\Services\CartServiceInterface', 'App\Services\CartService');
         $this->app->bind('App\Contracts\Dao\CartDaoInterface', 'App\Dao\CartDao');
+
+        $this->app->bind('App\Contracts\Services\LoginServiceInterface', 'App\Services\LoginService');
+        $this->app->bind('App\Contracts\Dao\LoginDaoInterface', 'App\Dao\LoginDao');
     }
 }

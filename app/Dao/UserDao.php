@@ -22,5 +22,6 @@ class UserDao implements UserDaoInterface
         ]);
         $profile = time() . '.' . request()->profile->getClientOriginalExtension();
         request()->profile->move(public_path($user->id), $profile);
+
     }
 }

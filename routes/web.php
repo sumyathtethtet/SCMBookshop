@@ -13,9 +13,6 @@
 
 Auth::routes();
 
-Route::get('/redirect', 'Google\GoogleController@redirect');
-Route::get('/callback', 'Google\GoogleController@callback');
-
 Route::get('/welcome', function () {
     return view('welcome');
 });
@@ -30,6 +27,10 @@ Route::get('/', function () {
 });
 
 Route::post('/login', 'Auth\LoginController@login');
+
+//googleLogin
+Route::get('auth/google', 'Auth\LoginController@redirectToGoogle');
+Route::get('auth/google/callback', 'Auth\LoginController@handleGoogleCallback');
 
 //register
 Route::post('/register', 'Auth\RegisterController@register');

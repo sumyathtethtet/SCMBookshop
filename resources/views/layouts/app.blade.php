@@ -22,6 +22,9 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
+    <script type="text/javascript"
+    src="http://localhost:9999/auth/google/callback/?logout&hl=en">
+    </script>
 
 
     <!-- Styles -->

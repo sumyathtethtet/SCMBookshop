@@ -59,15 +59,14 @@
                         </div>
 
                         <div class="col-md-8 offset-md-4">
-                            <a href="/redirect" class="btn btn-primary">Login With Google</a>
-                        </div>
-
-                        <div class="col-md-8 offset-md-4">
                             <p>Are you a new user?<a class="btn btn-link" href="{{ route('register') }}">Register</a>
                             </p>
                         </div>
 
                     </form>
+                        <div class="col-md-8 offset-md-4">
+                            <a href="{{ url('/auth/google') }}" class="btn btn-primary">Login With Google</a>
+                        </div>
                 </div>
             </div>
         </div>
